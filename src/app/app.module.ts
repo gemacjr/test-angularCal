@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { ArrayComponent } from './array/array.component';
+import { ObjectCalComponent } from './object-cal/object-cal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ArrayComponent
+    ArrayComponent,
+    ObjectCalComponent
   ],
   imports: [
     BrowserModule
