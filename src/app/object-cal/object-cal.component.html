@@ -1,1 +1,231 @@
-<p>object-cal works!</p>
+<div class="container">
+    <div class="row">
+
+    </div>
+</div>
+<hr>
+<div class ="container">
+    <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="currentYear">
+        <label ngbButtonLabel class="btn-danger">
+          <input ngbButton type="radio" [value]="2021"> 2021
+        </label>
+        <label ngbButtonLabel class="btn-danger">
+          <input ngbButton type="radio" value="2022"> 2022
+        </label>
+        <label ngbButtonLabel class="btn-danger">
+          <input ngbButton type="radio" [value]="2023"> 2023
+        </label>
+      </div>
+      <hr>
+      
+</div>
+<hr>
+
+<div class="container">
+    <h4>Closure Dates</h4>
+    <div class="row col-md-2">
+        <div id="menu-outer">
+            <div class="table">
+                {{ currentYear }}
+                <ul id="horizontal-list">
+                    
+                    <li *ngFor="let day of currentClosure ">
+                        
+                        <label class="closure-button" ngbButtonLabel class="btn-danger">
+                            <input ngbButton type="checkbox" [value]="day">
+                            
+                            {{day.dayOfWeek}} 
+
+                            {{day.dateNumber}}
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        
+    </div>
+</div>
+<hr> 
+ <div class="container lol-lg-12">
+
+<div class="scrollmenu">
+    
+    <table >
+        <caption>JAN {{ currentYear }}</caption>
+       
+        <tr *ngFor="let row of monthJanArray;">
+           
+          <td  *ngFor="let column of days; let i = index;">
+            <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
+                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                    {{row[i].dateNumber}}<br>
+                    {{row[i].dayOfWeek}}
+            </div>
+        </td>
+    </tr>
+      </table> 
+      
+      <table >
+        <caption>FEB {{ currentYear }}</caption>
+       
+        <tr *ngFor="let row of monthFebArray;">
+           
+          <td  *ngFor="let column of days; let i = index;">
+            <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
+                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                    {{row[i].dateNumber}}<br>
+                    {{row[i].dayOfWeek}}
+            </div>
+        </td>
+    </tr>
+      </table> 
+     
+      <table >
+        <caption>MAR {{ currentYear }}</caption>
+       
+        <tr *ngFor="let row of monthMarArray;">
+           
+          <td  *ngFor="let column of days; let i = index;">
+            <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
+                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                    {{row[i].dateNumber}}<br>
+                    {{row[i].dayOfWeek}}
+            </div>
+        </td>
+    </tr>
+      </table> 
+      
+      <table >
+        <caption>APR {{ currentYear }}</caption>
+       
+        <tr *ngFor="let row of monthAprArray;">
+           
+          <td  *ngFor="let column of days; let i = index;">
+            <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
+                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                    {{row[i].dateNumber}}<br>
+                    {{row[i].dayOfWeek}}
+            </div>
+        </td>
+    </tr>
+      </table>
+      
+      <table >
+        <caption>MAY {{ currentYear }}</caption>
+       
+        <tr *ngFor="let row of monthMayArray;">
+           
+          <td  *ngFor="let column of days; let i = index;">
+            <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
+                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                    {{row[i].dateNumber}}<br>
+                    {{row[i].dayOfWeek}}
+            </div>
+        </td>
+    </tr>
+      </table>
+      
+      <table >
+        <caption>JUNE {{ currentYear }}</caption>
+       
+        <tr *ngFor="let row of monthJuneArray;">
+           
+          <td  *ngFor="let column of days; let i = index;">
+            <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
+                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                    {{row[i].dateNumber}}<br>
+                    {{row[i].dayOfWeek}}
+            </div>
+        </td>
+    </tr>
+      </table>
+      
+      <table >
+        <caption>JULY {{ currentYear }}</caption>
+       
+        <tr *ngFor="let row of monthJulyArray;">
+           
+          <td  *ngFor="let column of days; let i = index;">
+            <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
+                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                    {{row[i].dateNumber}}<br>
+                    {{row[i].dayOfWeek}}
+            </div>
+        </td>
+    </tr>
+      </table>
+      
+      <table >
+        <caption>AUG {{ currentYear }}</caption>
+       
+        <tr *ngFor="let row of monthAugArray;">
+           
+          <td  *ngFor="let column of days; let i = index;">
+            <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
+                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                    {{row[i].dateNumber}}<br>
+                    {{row[i].dayOfWeek}}
+            </div>
+        </td>
+    </tr>
+      </table>
+      <table >
+        <caption>SEP {{ currentYear }}</caption>
+       
+        <tr *ngFor="let row of monthSeptArray;">
+           
+          <td  *ngFor="let column of days; let i = index;">
+            <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
+                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                    {{row[i].dateNumber}}<br>
+                    {{row[i].dayOfWeek}}
+            </div>
+        </td>
+    </tr>
+      </table>
+      <table >
+        <caption>OCT {{ currentYear }}</caption>
+       
+        <tr *ngFor="let row of monthOctArray;">
+           
+          <td  *ngFor="let column of days; let i = index;">
+            <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
+                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                    {{row[i].dateNumber}}<br>
+                    {{row[i].dayOfWeek}}
+            </div>
+        </td>
+    </tr>
+      </table>
+      <table >
+        <caption>NOV {{ currentYear }}</caption>
+       
+        <tr *ngFor="let row of monthNovArray;">
+           
+          <td  *ngFor="let column of days; let i = index;">
+            <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
+                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                    {{row[i].dateNumber}}<br>
+                    {{row[i].dayOfWeek}}
+            </div>
+        </td>
+    </tr>
+      </table>
+      <table >
+        <caption>DEC {{ currentYear }}</caption>
+       
+        <tr *ngFor="let row of monthDecArray;">
+           
+          <td  *ngFor="let column of days; let i = index;">
+            <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
+                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                    {{row[i].dateNumber}}<br>
+                    {{row[i].dayOfWeek}}
+            </div>
+        </td>
+    </tr>
+      </table>
+</div>
+    
+</div>

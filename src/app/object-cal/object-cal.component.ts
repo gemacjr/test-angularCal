@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { getLocaleDateFormat } from '@angular/common';
-import { strict } from 'assert';
-import { callbackify } from 'util';
+
 
 @Component({
   selector: 'app-object-cal',
@@ -9,11 +8,28 @@ import { callbackify } from 'util';
   styleUrls: ['./object-cal.component.css'],
 })
 export class ObjectCalComponent implements OnInit {
+
+  currentYear = 2021
   dateStr: string;
   isSelected: boolean;
   isPast: boolean;
 
   monthOne = [];
+  monthJanArray = [];
+  monthFebArray = [];
+  monthMarArray = [];
+  monthAprArray = [];
+  monthMayArray = [];
+  monthJuneArray = [];
+  monthJulyArray = [];
+  monthAugArray = [];
+  monthSeptArray = [];
+  monthOctArray = [];
+  monthNovArray = [];
+  monthDecArray = [];
+
+  monthArray = [];
+  selectedDates: string[];
 
   monthName: string;
 
@@ -36,85 +52,144 @@ export class ObjectCalComponent implements OnInit {
     "10,4,4": "Thanksgiving"
   }
 
+  testmonthJan = [];
+
+  days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
   closureDates = ['02/02/2020', '08/06/2020', '08/07/2020'];
+
+  currentClosure = [
+    {"dateKey":"01/03/2021","dateNumber":"03","dayOfWeek":"TUE","isSelected":false,"isPast":true,"isSunday":false,"isHoliday":false},
+    {"dateKey":"02/15/2021","dateNumber":"15","dayOfWeek":"WED","isSelected":false,"isPast":true,"isSunday":false,"isHoliday":false},
+    {"dateKey":"01/26/2021","dateNumber":"26","dayOfWeek":"THU","isSelected":false,"isPast":true,"isSunday":false,"isHoliday":false},
+    {"dateKey":"03/17/2021","dateNumber":"17","dayOfWeek":"FRI","isSelected":false,"isPast":true,"isSunday":false,"isHoliday":false}
+  ]
 
   ngOnInit(): void {
     //console.log(this.buildYearArray())
     // console.log(this.buildMonthArray('JAN', '01/02/2020'));
     //console.log(this.monthOne)
-
+    this.currentClosure;
     console.log(this.buildYearArray('2020'));
     this.myYearArray = this.buildYearArray('2020');
     this.newDate = this.myYearArray[0][0];
     this.newDate.isSelected = true;
-    console.log(this.myYearArray);
-    this.createMonthArray(this.myYearArray);
+    this.days;
+    this.monthJanArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("01", "2021"))
+    this.monthFebArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("02", "2021"))
+    this.monthMarArray  = this.buildMonthArrayFromyYearArray(this.buildMonthArray("03", "2021"))
+    console.log("This is feb " + this.monthFebArray)
+    this.monthAprArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("04", "2021"))
+    this.monthMayArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("05", "2021"))
+    this.monthJuneArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("06", "2021"))
+    this.monthJulyArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("07", "2021"))
+    this.monthAugArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("08", "2021"))
+    this.monthSeptArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("09", "2021"))
+    this.monthOctArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("10", "2021"))
+    this.monthNovArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("11", "2021"))
+    this.monthDecArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("12", "2021"))
+
+    console.log(this.buildMonthArray("02", "2021"));
+
+  
+
+    this.testmonthJan = this.buildMonthArray("01", "2021");
+    console.log(this.buildMonthArray("02", "2021"))
+    //console.log(this.myYearArray[0]);
+    //this.createMonthArray(this.myYearArray);
+    this.selectedDates = new Array<string>();
   }
 
-  createMonthArray(yearArray) {
+  getDateId(e:any, dateId:string){
+
     
-    let newYearArray = []
-    let tmp = yearArray[0][0];
-    let year = yearArray[0][0].dateKey.split("/")
-    console.log(year[2]);
-    let numDaysOfMonth = this.getDaysInaMonth(year[0],year[2]) //"01" "2020"
-    // first week array find dayOfWeek
-    console.log(numDaysOfMonth) // 31 for Jan
-    console.log(tmp.dateNumber)
-    console.log(tmp.dayOfWeek);
+    if(e.target.checked) {
+      console.log(dateId + ' is Checked');
+      this.selectedDates.push(dateId);
 
-
-      yearArray.forEach(( month, index) => {
-        
-        let length = month.length -1;
-        let lengthOfFirstWeek
-
-        month.forEach(( week, monthIndex) => {
-          
-          let month = [];
-
-          // if(week.dateNumber =="01"){
-          //   lengthOfFirstWeek = this.getFirstDayOfWeekLength(week.dayOfWeek)
-          //   console.log(week) //objectg
-          //   console.log(lengthOfFirstWeek); //length of first week
-          //   for(let l = 0; l < lengthOfFirstWeek; l++){
-          //     month.push(week);
-          //     console.log("This is the month of first " + JSON.stringify(month));
-          //   }
-
-          // }
-      });
-        
-      });
-    
-    
-
-    return newYearArray;
+    } else {
+      console.log(dateId + 'unChecked');
+      this.selectedDates = this.selectedDates.filter(m=>m!=dateId)
+    }
+    console.log("The array of closure Dates " + this.selectedDates )
   }
+
+
+  buildMonthArrayFromyYearArray(arrayOfWeeks) {
+    let weekOneArray =[]
+let weekTwoArray=[]
+let weekThreeArray=[]
+let weekFourArray=[]
+let weekFiveArray=[]
+let weekSixArray = []
+
+
+
+
+ weekOneArray = arrayOfWeeks.splice(0, 7)
+weekTwoArray = arrayOfWeeks.splice(0, 7)
+ weekThreeArray = arrayOfWeeks.splice(0,7)
+ weekFourArray = arrayOfWeeks.splice(0, 7)
+ weekFiveArray = arrayOfWeeks.splice(0,7)
+ weekSixArray = arrayOfWeeks.splice(0,7)
+
+ this.monthArray = [weekOneArray, weekTwoArray, weekThreeArray, weekFourArray, weekFiveArray, weekSixArray];
+
+ return this.monthArray;
+  }
+
+ 
 
   getFirstDayOfWeekLength(dayOfFirstWeek){
     let numberOfDays = 0;
     switch(dayOfFirstWeek){
       case "SUN":
-        numberOfDays = 7;
+        numberOfDays = 0;
         break;
       case "MON":
-        numberOfDays = 6;
+        numberOfDays = 1;
         break;
       case "TUE":
-        numberOfDays = 5;
-        break;
-      case "WED":
-        numberOfDays = 4;
-        break;
-      case "THU":
-        numberOfDays = 3;
-        break;
-      case "FRI":
         numberOfDays = 2;
         break;
+      case "WED":
+        numberOfDays = 3;
+        break;
+      case "THU":
+        numberOfDays = 4;
+        break;
+      case "FRI":
+        numberOfDays = 5;
+        break;
       default:
-        numberOfDays = 1
+        numberOfDays = 6
+    }
+    return numberOfDays;
+  }
+
+  getLastDayOfWeekLength(dayOflastWeek){
+    let numberOfDays = 0;
+    switch(dayOflastWeek){
+      case "SUN":
+        numberOfDays = 6;
+        break;
+      case "MON":
+        numberOfDays = 5;
+        break;
+      case "TUE":
+        numberOfDays = 4;
+        break;
+      case "WED":
+        numberOfDays = 3;
+        break;
+      case "THU":
+        numberOfDays = 2;
+        break;
+      case "FRI":
+        numberOfDays = 1;
+        break;
+      default:
+        numberOfDays = 0
     }
     return numberOfDays;
   }
@@ -122,7 +197,7 @@ export class ObjectCalComponent implements OnInit {
   buildYearArray(currentYear) {
     let year = [];
     for (let i = 0; i < 12; i++) {
-      let monthsOfYear = this.testBuildMonthArray(
+      let monthsOfYear = this.buildMonthArray(
         (i + 1).toString(),
         currentYear
       );
@@ -131,8 +206,11 @@ export class ObjectCalComponent implements OnInit {
     return year;
   }
 
-  testBuildMonthArray(monthStr, yearStr) {
+  buildMonthArray(monthStr, yearStr) {
     let day = {};
+    let daySpare = {};
+    let dayEnd = {};
+    let daySpareEnd = {};
     let monthArray = [];
     let month;
     let numberOfDaysInMonth = this.getDaysInaMonth(monthStr, yearStr);
@@ -150,6 +228,8 @@ export class ObjectCalComponent implements OnInit {
       } else {
         dayNumStr = (i + 1).toString();
       }
+      // console.log("This is day of week " + this.getDayOfWeek(month + '/' + dayNumStr + '/' + year));
+      // console.log("This is day of week " + this.getDayOfWeek(month + '/' + dayNumStr + '/' + year));
       day = {
         dateKey: month + '/' + dayNumStr + '/' + year,
         dateNumber: dayNumStr,
@@ -160,8 +240,66 @@ export class ObjectCalComponent implements OnInit {
         isHoliday: this.getIsHoliday(month + '/' + dayNumStr + '/' + year, this.holidayDays)
       };
 
+    //console.log(this.getDayOfWeek(month + '/' + numberOfDaysInMonth  + '/' + year))
+
+    let dayInlastWeek = this.getDayOfWeek(month + '/' + numberOfDaysInMonth  + '/' + year)
+    //console.log("The day is the last week " + this.getLastDayOfWeekLength(dayInlastWeek));
+
+    
+
       monthArray.push(day);
     }
+
+    
+    
+    if(monthArray[0].dateNumber === "01"){
+      let numberOfDaysToAdd = this.getFirstDayOfWeekLength(monthArray[0].dayOfWeek)
+      
+      for(let k = 0; k < numberOfDaysToAdd; k++){
+        daySpare = {
+          dateKey: "00/00/0000",
+          dateNumber: "00",
+          dayOfWeek: "",
+          isSelected: false,
+          isPast: true,
+          isSunday: false,
+          isHoliday: false
+        };
+        monthArray.unshift(daySpare)
+      }
+    }
+    if(monthArray.length > 28){
+      console.log("The final week count " + this.getDayOfWeek(month + '/' + numberOfDaysInMonth + '/' + year))
+      let finalWeekCount = this.getLastDayOfWeekLength(this.getDayOfWeek(month + '/' + numberOfDaysInMonth + '/' + year));
+      for(let i = 0; i < finalWeekCount; i++){
+        dayEnd = {
+          dateKey: "00/00/0000",
+          dateNumber: "00",
+          dayOfWeek: "",
+          isSelected: false,
+          isPast: true,
+          isSunday: false,
+          isHoliday: false
+        };
+        monthArray.push(dayEnd)
+      }
+    }
+    if(monthArray.length === 35){
+      for(let i = 0; i < 7; i++){
+        dayEnd = {
+          dateKey: "00/00/0000",
+          dateNumber: "00",
+          dayOfWeek: "",
+          isSelected: false,
+          isPast: true,
+          isSunday: false,
+          isHoliday: false
+        };
+        monthArray.push(dayEnd)
+      }
+    }
+    //console.log("This is month " + JSON.stringify(monthArray[numberOfDaysInMonth]))
+    
 
     return monthArray;
   }
@@ -257,6 +395,8 @@ export class ObjectCalComponent implements OnInit {
     return isSunday;
   }
 
+
+
   isHoliday(date) {
     // static holidays
     const isDate = (d, month, date) => {
@@ -290,3 +430,40 @@ export class ObjectCalComponent implements OnInit {
     return "";
 }
 }
+
+
+// createMonthArray(yearArray) {
+    
+//   let newYearArray = []
+//   let tmp = yearArray[0][0];
+//   let year = yearArray[0][0].dateKey.split("/")
+//   console.log(year[2]);
+//   let numDaysOfMonth = this.getDaysInaMonth(year[0],year[2]) //"01" "2020"
+  
+//    yearArray.forEach(( month, index) => {
+      
+//       let length = month.length -1;
+//       let lengthOfFirstWeek
+
+//       month.forEach(( week, monthIndex) => {
+        
+//         let month = [];
+
+        // if(week.dateNumber =="01"){
+        //   lengthOfFirstWeek = this.getFirstDayOfWeekLength(week.dayOfWeek)
+        //   console.log(week) //objectg
+        //   console.log(lengthOfFirstWeek); //length of first week
+        //   for(let l = 0; l < lengthOfFirstWeek; l++){
+        //     month.push(week);
+        //     console.log("This is the month of first " + JSON.stringify(month));
+        //   }
+
+        // }
+//     });
+      
+//     });
+  
+  
+
+//   return newYearArray;
+// }

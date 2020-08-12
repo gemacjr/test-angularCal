@@ -1,0 +1,60 @@
+#menu-outer {
+    height: 84px;
+}
+
+.table {
+    display: table;
+    width: 200px;
+}
+
+ul#horizontal-list {
+    min-width: 696px;
+    list-style: none;
+    padding-top: 20px;
+}
+
+ul#horizontal-list li {
+    display: inline;
+}
+
+li label {
+    height: 60px;
+    width: 60px;
+    padding: 2px;
+    font-size: 13px;
+    margin: 2px;
+}
+
+.dateBox {
+    height: 50px;
+    width: 50px;
+    margin: 4px;
+    border: solid 1px;
+    border-radius: .5em;
+    text-align: center;
+    font-size: 12px;
+    
+}
+
+table caption {
+    text-align: center;
+}
+
+div.scrollmenu {
+    
+    overflow: auto;
+    white-space: nowrap;
+  }
+  
+  div.scrollmenu table {
+    display: inline-block;
+    
+   
+    padding: 4px;
+    text-decoration: none;
+    
+  }
+
+  scollmenu::-webkit-scrollbar {
+    display: none;
+}
