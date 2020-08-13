@@ -58,3 +58,8 @@ div.scrollmenu {
   scollmenu::-webkit-scrollbar {
     display: none;
 }
+
+div.dateBox:disabled  {
+    background: red;
+}
+  

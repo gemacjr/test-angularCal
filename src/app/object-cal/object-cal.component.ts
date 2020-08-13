@@ -8,8 +8,7 @@ import { getLocaleDateFormat } from '@angular/common';
   styleUrls: ['./object-cal.component.css'],
 })
 export class ObjectCalComponent implements OnInit {
-
-  currentYear = 2021
+  currentYear = 2021;
   dateStr: string;
   isSelected: boolean;
   isPast: boolean;
@@ -47,163 +46,164 @@ export class ObjectCalComponent implements OnInit {
   ];
 
   holidays = {
-    "4,5,1": "Memorial Day",
-    "8,1,1": "Labor Day",
-    "10,4,4": "Thanksgiving"
-  }
+    '4,5,1': 'Memorial Day',
+    '8,1,1': 'Labor Day',
+    '10,4,4': 'Thanksgiving',
+  };
 
   testmonthJan = [];
 
-  days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
   closureDates = ['02/02/2020', '08/06/2020', '08/07/2020'];
 
   currentClosure = [
-    {"dateKey":"01/03/2021","dateNumber":"03","dayOfWeek":"TUE","isSelected":false,"isPast":true,"isSunday":false,"isHoliday":false},
-    {"dateKey":"02/15/2021","dateNumber":"15","dayOfWeek":"WED","isSelected":false,"isPast":true,"isSunday":false,"isHoliday":false},
-    {"dateKey":"01/26/2021","dateNumber":"26","dayOfWeek":"THU","isSelected":false,"isPast":true,"isSunday":false,"isHoliday":false},
-    {"dateKey":"03/17/2021","dateNumber":"17","dayOfWeek":"FRI","isSelected":false,"isPast":true,"isSunday":false,"isHoliday":false}
-  ]
+    {
+      dateKey: '01/03/2021',
+      dateNumber: '03',
+      dayOfWeek: 'TUE',
+      isSelected: false,
+      isPast: true,
+      isSunday: false,
+      isHoliday: false,
+    },
+    {
+      dateKey: '02/15/2021',
+      dateNumber: '15',
+      dayOfWeek: 'WED',
+      isSelected: false,
+      isPast: true,
+      isSunday: false,
+      isHoliday: false,
+    },
+    {
+      dateKey: '01/26/2021',
+      dateNumber: '26',
+      dayOfWeek: 'THU',
+      isSelected: false,
+      isPast: true,
+      isSunday: false,
+      isHoliday: false,
+    },
+    {
+      dateKey: '03/17/2021',
+      dateNumber: '17',
+      dayOfWeek: 'FRI',
+      isSelected: false,
+      isPast: true,
+      isSunday: false,
+      isHoliday: false,
+    },
+  ];
 
   ngOnInit(): void {
     //console.log(this.buildYearArray())
     // console.log(this.buildMonthArray('JAN', '01/02/2020'));
     //console.log(this.monthOne)
     this.currentClosure;
-    console.log(this.buildYearArray('2020'));
     this.myYearArray = this.buildYearArray('2020');
     this.newDate = this.myYearArray[0][0];
     this.newDate.isSelected = true;
     this.days;
-    this.monthJanArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("01", "2021"))
-    this.monthFebArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("02", "2021"))
-    this.monthMarArray  = this.buildMonthArrayFromyYearArray(this.buildMonthArray("03", "2021"))
-    console.log("This is feb " + this.monthFebArray)
-    this.monthAprArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("04", "2021"))
-    this.monthMayArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("05", "2021"))
-    this.monthJuneArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("06", "2021"))
-    this.monthJulyArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("07", "2021"))
-    this.monthAugArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("08", "2021"))
-    this.monthSeptArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("09", "2021"))
-    this.monthOctArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("10", "2021"))
-    this.monthNovArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("11", "2021"))
-    this.monthDecArray = this.buildMonthArrayFromyYearArray(this.buildMonthArray("12", "2021"))
 
-    console.log(this.buildMonthArray("02", "2021"));
+    this.buildYearArrayForUi('2022');
+    //console.log(this.buildMonthArray("02", "2021"));
 
-  
-
-    this.testmonthJan = this.buildMonthArray("01", "2021");
-    console.log(this.buildMonthArray("02", "2021"))
+    this.testmonthJan = this.buildMonthArray('01', '2021');
+    //console.log(this.buildMonthArray("02", "2021"))
     //console.log(this.myYearArray[0]);
     //this.createMonthArray(this.myYearArray);
     this.selectedDates = new Array<string>();
   }
 
-  getDateId(e:any, dateId:string){
-
-    
-    if(e.target.checked) {
-      console.log(dateId + ' is Checked');
-      this.selectedDates.push(dateId);
-
-    } else {
-      console.log(dateId + 'unChecked');
-      this.selectedDates = this.selectedDates.filter(m=>m!=dateId)
-    }
-    console.log("The array of closure Dates " + this.selectedDates )
-  }
-
-
-  buildMonthArrayFromyYearArray(arrayOfWeeks) {
-    let weekOneArray =[]
-let weekTwoArray=[]
-let weekThreeArray=[]
-let weekFourArray=[]
-let weekFiveArray=[]
-let weekSixArray = []
-
-
-
-
- weekOneArray = arrayOfWeeks.splice(0, 7)
-weekTwoArray = arrayOfWeeks.splice(0, 7)
- weekThreeArray = arrayOfWeeks.splice(0,7)
- weekFourArray = arrayOfWeeks.splice(0, 7)
- weekFiveArray = arrayOfWeeks.splice(0,7)
- weekSixArray = arrayOfWeeks.splice(0,7)
-
- this.monthArray = [weekOneArray, weekTwoArray, weekThreeArray, weekFourArray, weekFiveArray, weekSixArray];
-
- return this.monthArray;
-  }
-
- 
-
-  getFirstDayOfWeekLength(dayOfFirstWeek){
-    let numberOfDays = 0;
-    switch(dayOfFirstWeek){
-      case "SUN":
-        numberOfDays = 0;
-        break;
-      case "MON":
-        numberOfDays = 1;
-        break;
-      case "TUE":
-        numberOfDays = 2;
-        break;
-      case "WED":
-        numberOfDays = 3;
-        break;
-      case "THU":
-        numberOfDays = 4;
-        break;
-      case "FRI":
-        numberOfDays = 5;
-        break;
-      default:
-        numberOfDays = 6
-    }
-    return numberOfDays;
-  }
-
-  getLastDayOfWeekLength(dayOflastWeek){
-    let numberOfDays = 0;
-    switch(dayOflastWeek){
-      case "SUN":
-        numberOfDays = 6;
-        break;
-      case "MON":
-        numberOfDays = 5;
-        break;
-      case "TUE":
-        numberOfDays = 4;
-        break;
-      case "WED":
-        numberOfDays = 3;
-        break;
-      case "THU":
-        numberOfDays = 2;
-        break;
-      case "FRI":
-        numberOfDays = 1;
-        break;
-      default:
-        numberOfDays = 0
-    }
-    return numberOfDays;
+  buildYearArrayForUi(year) {
+    this.monthJanArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('01', year)
+    );
+    this.monthFebArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('02', year)
+    );
+    this.monthMarArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('03', year)
+    );
+    this.monthAprArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('04', year)
+    );
+    this.monthMayArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('05', year)
+    );
+    this.monthJuneArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('06', year)
+    );
+    this.monthJulyArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('07', year)
+    );
+    this.monthAugArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('08', year)
+    );
+    this.monthSeptArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('09', year)
+    );
+    this.monthOctArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('10', year)
+    );
+    this.monthNovArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('11', year)
+    );
+    this.monthDecArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('12', year)
+    );
   }
 
   buildYearArray(currentYear) {
     let year = [];
     for (let i = 0; i < 12; i++) {
-      let monthsOfYear = this.buildMonthArray(
-        (i + 1).toString(),
-        currentYear
-      );
+      let monthsOfYear = this.buildMonthArray((i + 1).toString(), currentYear);
       year.push(monthsOfYear);
     }
     return year;
+  }
+
+  getYear(year) {
+    this.buildYearArrayForUi(year);
+  }
+
+  getDateId(e: any, dateId: string) {
+    if (e.target.checked) {
+      console.log(dateId + ' is Checked');
+      this.selectedDates.push(dateId);
+    } else {
+      console.log(dateId + 'unChecked');
+      this.selectedDates = this.selectedDates.filter((m) => m != dateId);
+    }
+    console.log('The array of closure Dates ' + this.selectedDates);
+  }
+
+  buildMonthArrayFromyYearArray(arrayOfWeeks) {
+    let weekOneArray = [];
+    let weekTwoArray = [];
+    let weekThreeArray = [];
+    let weekFourArray = [];
+    let weekFiveArray = [];
+    let weekSixArray = [];
+
+    weekOneArray = arrayOfWeeks.splice(0, 7);
+    weekTwoArray = arrayOfWeeks.splice(0, 7);
+    weekThreeArray = arrayOfWeeks.splice(0, 7);
+    weekFourArray = arrayOfWeeks.splice(0, 7);
+    weekFiveArray = arrayOfWeeks.splice(0, 7);
+    weekSixArray = arrayOfWeeks.splice(0, 7);
+
+    this.monthArray = [
+      weekOneArray,
+      weekTwoArray,
+      weekThreeArray,
+      weekFourArray,
+      weekFiveArray,
+      weekSixArray,
+    ];
+
+    return this.monthArray;
   }
 
   buildMonthArray(monthStr, yearStr) {
@@ -234,72 +234,75 @@ weekTwoArray = arrayOfWeeks.splice(0, 7)
         dateKey: month + '/' + dayNumStr + '/' + year,
         dateNumber: dayNumStr,
         dayOfWeek: this.getDayOfWeek(month + '/' + dayNumStr + '/' + year),
-        isSelected: this.getIsSelected(month + '/' + dayNumStr + '/' + year, this.closureDates),
+        isSelected: this.getIsSelected(
+          month + '/' + dayNumStr + '/' + year,
+          this.closureDates
+        ),
         isPast: this.getIsPast(month + '/' + dayNumStr + '/' + year),
         isSunday: this.getIsDefault(month + '/' + dayNumStr + '/' + year),
-        isHoliday: this.getIsHoliday(month + '/' + dayNumStr + '/' + year, this.holidayDays)
+        isHoliday: this.getIsHoliday(
+          month + '/' + dayNumStr + '/' + year,
+          this.holidayDays
+        ),
       };
 
-    //console.log(this.getDayOfWeek(month + '/' + numberOfDaysInMonth  + '/' + year))
-
-    let dayInlastWeek = this.getDayOfWeek(month + '/' + numberOfDaysInMonth  + '/' + year)
-    //console.log("The day is the last week " + this.getLastDayOfWeekLength(dayInlastWeek));
-
-    
+      let dayInlastWeek = this.getDayOfWeek(
+        month + '/' + numberOfDaysInMonth + '/' + year
+      );
 
       monthArray.push(day);
     }
 
-    
-    
-    if(monthArray[0].dateNumber === "01"){
-      let numberOfDaysToAdd = this.getFirstDayOfWeekLength(monthArray[0].dayOfWeek)
-      
-      for(let k = 0; k < numberOfDaysToAdd; k++){
+    if (monthArray[0].dateNumber === '01') {
+      let numberOfDaysToAdd = this.getFirstDayOfWeekLength(
+        monthArray[0].dayOfWeek
+      );
+
+      for (let k = 0; k < numberOfDaysToAdd; k++) {
         daySpare = {
-          dateKey: "00/00/0000",
-          dateNumber: "00",
-          dayOfWeek: "",
+          dateKey: '00/00/0000',
+          dateNumber: '00',
+          dayOfWeek: '',
           isSelected: false,
           isPast: true,
           isSunday: false,
-          isHoliday: false
+          isHoliday: false,
         };
-        monthArray.unshift(daySpare)
+        monthArray.unshift(daySpare);
       }
     }
-    if(monthArray.length > 28){
-      console.log("The final week count " + this.getDayOfWeek(month + '/' + numberOfDaysInMonth + '/' + year))
-      let finalWeekCount = this.getLastDayOfWeekLength(this.getDayOfWeek(month + '/' + numberOfDaysInMonth + '/' + year));
-      for(let i = 0; i < finalWeekCount; i++){
+    if (monthArray.length > 28) {
+      let finalWeekCount = this.getLastDayOfWeekLength(
+        this.getDayOfWeek(month + '/' + numberOfDaysInMonth + '/' + year)
+      );
+      for (let i = 0; i < finalWeekCount; i++) {
         dayEnd = {
-          dateKey: "00/00/0000",
-          dateNumber: "00",
-          dayOfWeek: "",
+          dateKey: '00/00/0000',
+          dateNumber: '00',
+          dayOfWeek: '',
           isSelected: false,
           isPast: true,
           isSunday: false,
-          isHoliday: false
+          isHoliday: false,
         };
-        monthArray.push(dayEnd)
+        monthArray.push(dayEnd);
       }
     }
-    if(monthArray.length === 35){
-      for(let i = 0; i < 7; i++){
+    if (monthArray.length === 35) {
+      for (let i = 0; i < 7; i++) {
         dayEnd = {
-          dateKey: "00/00/0000",
-          dateNumber: "00",
-          dayOfWeek: "",
+          dateKey: '00/00/0000',
+          dateNumber: '00',
+          dayOfWeek: '',
           isSelected: false,
           isPast: true,
           isSunday: false,
-          isHoliday: false
+          isHoliday: false,
         };
-        monthArray.push(dayEnd)
+        monthArray.push(dayEnd);
       }
     }
     //console.log("This is month " + JSON.stringify(monthArray[numberOfDaysInMonth]))
-    
 
     return monthArray;
   }
@@ -334,9 +337,7 @@ weekTwoArray = arrayOfWeeks.splice(0, 7)
     return weekDay;
   }
 
-
   getIsSelected(dateString, closureDates): boolean {
-
     return closureDates.includes(dateString);
   }
 
@@ -395,41 +396,101 @@ weekTwoArray = arrayOfWeeks.splice(0, 7)
     return isSunday;
   }
 
-
-
   isHoliday(date) {
     // static holidays
     const isDate = (d, month, date) => {
-        return d.getMonth() == (month - 1) && d.getDate() == date;
+      return d.getMonth() == month - 1 && d.getDate() == date;
     };
-    if (isDate(date, 1, 1)) { return "New Year"; }
-    else if (isDate(date, 7, 4)) { return "Independence Day"; }
-    else if (isDate(date, 12, 25)) { return "Christmas Day"; }
+    if (isDate(date, 1, 1)) {
+      return 'New Year';
+    } else if (isDate(date, 7, 4)) {
+      return 'Independence Day';
+    } else if (isDate(date, 12, 25)) {
+      return 'Christmas Day';
+    }
 
     // dynamic holidays
     const isDay = (d, month, day, occurance) => {
-        if (d.getMonth() == (month - 1) && d.getDay() == day) {
-            if (occurance > 0) {
-                return occurance == Math.ceil(d.getDate() / 7);
-            } else {
-                // check last occurance
-                let _d = new Date(d);
-                _d.setDate(d.getDate() + 7);
-                return _d.getMonth() > d.getMonth();
-            }
+      if (d.getMonth() == month - 1 && d.getDay() == day) {
+        if (occurance > 0) {
+          return occurance == Math.ceil(d.getDate() / 7);
+        } else {
+          // check last occurance
+          let _d = new Date(d);
+          _d.setDate(d.getDate() + 7);
+          return _d.getMonth() > d.getMonth();
         }
-        return false;
+      }
+      return false;
     };
-    if (isDay(date, 5, 1, -1)) { return "Memorial Day"; }
-    else if (isDay(date, 9, 1, 1)) { return "Labor Day"; }
-    else if (isDay(date, 11, 4, 4)) { return "Thanksgiving Day"; }
-
-    
+    if (isDay(date, 5, 1, -1)) {
+      return 'Memorial Day';
+    } else if (isDay(date, 9, 1, 1)) {
+      return 'Labor Day';
+    } else if (isDay(date, 11, 4, 4)) {
+      return 'Thanksgiving Day';
+    }
 
     // not a holiday
-    return "";
+    return '';
+  }
+
+  getFirstDayOfWeekLength(dayOfFirstWeek) {
+    let numberOfDays = 0;
+    switch (dayOfFirstWeek) {
+      case 'SUN':
+        numberOfDays = 0;
+        break;
+      case 'MON':
+        numberOfDays = 1;
+        break;
+      case 'TUE':
+        numberOfDays = 2;
+        break;
+      case 'WED':
+        numberOfDays = 3;
+        break;
+      case 'THU':
+        numberOfDays = 4;
+        break;
+      case 'FRI':
+        numberOfDays = 5;
+        break;
+      default:
+        numberOfDays = 6;
+    }
+    return numberOfDays;
+  }
+
+  getLastDayOfWeekLength(dayOflastWeek) {
+    let numberOfDays = 0;
+    switch (dayOflastWeek) {
+      case 'SUN':
+        numberOfDays = 6;
+        break;
+      case 'MON':
+        numberOfDays = 5;
+        break;
+      case 'TUE':
+        numberOfDays = 4;
+        break;
+      case 'WED':
+        numberOfDays = 3;
+        break;
+      case 'THU':
+        numberOfDays = 2;
+        break;
+      case 'FRI':
+        numberOfDays = 1;
+        break;
+      default:
+        numberOfDays = 0;
+    }
+    return numberOfDays;
+  }
 }
-}
+
+
 
 
 // createMonthArray(yearArray) {

@@ -5,21 +5,26 @@
 </div>
 <hr>
 <div class ="container">
+    <form>
     <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="currentYear">
         <label ngbButtonLabel class="btn-danger">
-          <input ngbButton type="radio" [value]="2021"> 2021
+          <input ngbButton type="radio"  value="2021" (click)="getYear('2021')" > 2021
         </label>
         <label ngbButtonLabel class="btn-danger">
-          <input ngbButton type="radio" value="2022"> 2022
+          <input ngbButton type="radio" value="2022" (click)="getYear('2022')"> 2022
         </label>
         <label ngbButtonLabel class="btn-danger">
-          <input ngbButton type="radio" [value]="2023"> 2023
+          <input ngbButton type="radio" [value]="2023" (click)="getYear('2023')"> 2023
         </label>
       </div>
-      <hr>
+      </form>
+
+      
       
 </div>
-<hr>
+<br>
+<br>
+
 
 <div class="container">
     <h4>Closure Dates</h4>
@@ -31,8 +36,11 @@
                     
                     <li *ngFor="let day of currentClosure ">
                         
-                        <label class="closure-button" ngbButtonLabel class="btn-danger">
-                            <input ngbButton type="checkbox" [value]="day">
+                        <label class="closure-button" ngbButtonLabel class="btn-dark">
+                            <input 
+                            ngbButton 
+                            type="checkbox" 
+                            [value]="day">
                             
                             {{day.dayOfWeek}} 
 
@@ -46,7 +54,10 @@
         
     </div>
 </div>
-<hr> 
+
+<br>
+<br>
+
  <div class="container lol-lg-12">
 
 <div class="scrollmenu">
@@ -58,7 +69,28 @@
            
           <td  *ngFor="let column of days; let i = index;">
             <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
-                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                <input 
+                type="checkbox" 
+                    name="row[i].datekey" 
+                    value="row[i].dateKey" 
+                    (click)="getDateId($event, row[i].dateKey)" 
+                    [ngClass]="{'selected' : row[i].isSelected && !row[i].isSunday && !row[i].isSunday,
+                                'unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                                'passed-selected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                                'passed-unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday}"
+                                [disabled]="row[i].isPast || row[i].isSunday">
+                                <svg *ngIf="row[i].isSunday || row[i].isHoliday" class="icon logo" focusable="false">
+                                  <use xlink:href="assets/static/icons/icon-CH-logo.svg#asset"></use>
+                                  <title>Cardinal Health</title>
+                              </svg>
+                              <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                                  <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+                                  <title>Cardinal Health</title>
+                              </svg>
+                              <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                                  <use xlink:href="assets/static/icons/icon-checkbox2.svg#asset"></use>
+                                  <title>Cardinal Health</title>
+                              </svg>
                     {{row[i].dateNumber}}<br>
                     {{row[i].dayOfWeek}}
             </div>
@@ -72,12 +104,33 @@
         <tr *ngFor="let row of monthFebArray;">
            
           <td  *ngFor="let column of days; let i = index;">
-            <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
-                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+            <div *ngIf="row[i].dateNumber !== '00'" class="dateBox" >
+                <input 
+          
+                    type="checkbox" 
+                    name="row[i].datekey" 
+                    value="row[i].dateKey" 
+                    (click)="getDateId($event, row[i].dateKey)" 
+                    [ngClass]="{'selected' : row[i].isSelected && !row[i].isSunday && !row[i].isSunday,
+                                'unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                                'passed-selected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                                'passed-unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday}"
+                                [disabled]="row[i].isPast || row[i].isSunday">
+                                <svg *ngIf="row[i].isSunday || row[i].isHoliday" class="icon logo" focusable="false">
+                                  <use xlink:href="assets/static/icons/icon-CH-logo.svg#asset"></use>
+                                  <title>Cardinal Health</title>
+                              </svg>
+                              <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                                  <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+                                  <title>Cardinal Health</title>
+                              </svg>
+                              <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                                  <use xlink:href="assets/static/icons/icon-checkbox2.svg#asset"></use>
+                                  <title>Cardinal Health</title>
+                              </svg>
                     {{row[i].dateNumber}}<br>
                     {{row[i].dayOfWeek}}
             </div>
-        </td>
     </tr>
       </table> 
      
@@ -88,7 +141,28 @@
            
           <td  *ngFor="let column of days; let i = index;">
             <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
-                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                <input 
+                type="checkbox" 
+                    name="row[i].datekey" 
+                    value="row[i].dateKey" 
+                    (click)="getDateId($event, row[i].dateKey)" 
+                    [ngClass]="{'selected' : row[i].isSelected && !row[i].isSunday && !row[i].isSunday,
+                                'unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                                'passed-selected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                                'passed-unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday}"
+                                [disabled]="row[i].isPast || row[i].isSunday">
+                                <svg *ngIf="row[i].isSunday || row[i].isHoliday" class="icon logo" focusable="false">
+                                  <use xlink:href="assets/static/icons/icon-CH-logo.svg#asset"></use>
+                                  <title>Cardinal Health</title>
+                              </svg>
+                              <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                                  <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+                                  <title>Cardinal Health</title>
+                              </svg>
+                              <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                                  <use xlink:href="assets/static/icons/icon-checkbox2.svg#asset"></use>
+                                  <title>Cardinal Health</title>
+                              </svg>
                     {{row[i].dateNumber}}<br>
                     {{row[i].dayOfWeek}}
             </div>
@@ -103,7 +177,28 @@
            
           <td  *ngFor="let column of days; let i = index;">
             <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
-                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                <input  
+                type="checkbox" 
+                    name="row[i].datekey" 
+                    value="row[i].dateKey" 
+                    (click)="getDateId($event, row[i].dateKey)" 
+                    [ngClass]="{'selected' : row[i].isSelected && !row[i].isSunday && !row[i].isSunday,
+                                'unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                                'passed-selected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                                'passed-unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday}"
+                                [disabled]="row[i].isPast || row[i].isSunday">
+                                <svg *ngIf="row[i].isSunday || row[i].isHoliday" class="icon logo" focusable="false">
+                                  <use xlink:href="assets/static/icons/icon-CH-logo.svg#asset"></use>
+                                  <title>Cardinal Health</title>
+                              </svg>
+                              <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                                  <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+                                  <title>Cardinal Health</title>
+                              </svg>
+                              <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                                  <use xlink:href="assets/static/icons/icon-checkbox2.svg#asset"></use>
+                                  <title>Cardinal Health</title>
+                              </svg>
                     {{row[i].dateNumber}}<br>
                     {{row[i].dayOfWeek}}
             </div>
@@ -118,7 +213,28 @@
            
           <td  *ngFor="let column of days; let i = index;">
             <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
-                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                <input  
+                type="checkbox" 
+                name="row[i].datekey" 
+                value="row[i].dateKey" 
+                (click)="getDateId($event, row[i].dateKey)" 
+                [ngClass]="{'selected' : row[i].isSelected && !row[i].isSunday && !row[i].isSunday,
+                            'unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                            'passed-selected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                            'passed-unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday}"
+                            [disabled]="row[i].isPast || row[i].isSunday">
+                            <svg *ngIf="row[i].isSunday || row[i].isHoliday" class="icon logo" focusable="false">
+                              <use xlink:href="assets/static/icons/icon-CH-logo.svg#asset"></use>
+                              <title>Cardinal Health</title>
+                          </svg>
+                          <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                              <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+                              <title>Cardinal Health</title>
+                          </svg>
+                          <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                              <use xlink:href="assets/static/icons/icon-checkbox2.svg#asset"></use>
+                              <title>Cardinal Health</title>
+                          </svg>
                     {{row[i].dateNumber}}<br>
                     {{row[i].dayOfWeek}}
             </div>
@@ -133,7 +249,28 @@
            
           <td  *ngFor="let column of days; let i = index;">
             <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
-                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                <input 
+                type="checkbox" 
+                name="row[i].datekey" 
+                value="row[i].dateKey" 
+                (click)="getDateId($event, row[i].dateKey)" 
+                [ngClass]="{'selected' : row[i].isSelected && !row[i].isSunday && !row[i].isSunday,
+                            'unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                            'passed-selected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                            'passed-unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday}"
+                            [disabled]="row[i].isPast || row[i].isSunday">
+                            <svg *ngIf="row[i].isSunday || row[i].isHoliday" class="icon logo" focusable="false">
+                              <use xlink:href="assets/static/icons/icon-CH-logo.svg#asset"></use>
+                              <title>Cardinal Health</title>
+                          </svg>
+                          <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                              <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+                              <title>Cardinal Health</title>
+                          </svg>
+                          <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                              <use xlink:href="assets/static/icons/icon-checkbox2.svg#asset"></use>
+                              <title>Cardinal Health</title>
+                          </svg>
                     {{row[i].dateNumber}}<br>
                     {{row[i].dayOfWeek}}
             </div>
@@ -148,7 +285,28 @@
            
           <td  *ngFor="let column of days; let i = index;">
             <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
-                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                <input
+                type="checkbox" 
+                name="row[i].datekey" 
+                value="row[i].dateKey" 
+                (click)="getDateId($event, row[i].dateKey)" 
+                [ngClass]="{'selected' : row[i].isSelected && !row[i].isSunday && !row[i].isSunday,
+                            'unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                            'passed-selected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                            'passed-unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday}"
+                            [disabled]="row[i].isPast || row[i].isSunday">
+                            <svg *ngIf="row[i].isSunday || row[i].isHoliday" class="icon logo" focusable="false">
+                              <use xlink:href="assets/static/icons/icon-CH-logo.svg#asset"></use>
+                              <title>Cardinal Health</title>
+                          </svg>
+                          <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                              <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+                              <title>Cardinal Health</title>
+                          </svg>
+                          <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                              <use xlink:href="assets/static/icons/icon-checkbox2.svg#asset"></use>
+                              <title>Cardinal Health</title>
+                          </svg>
                     {{row[i].dateNumber}}<br>
                     {{row[i].dayOfWeek}}
             </div>
@@ -163,7 +321,28 @@
            
           <td  *ngFor="let column of days; let i = index;">
             <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
-                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                <input
+                type="checkbox" 
+                    name="row[i].datekey" 
+                    value="row[i].dateKey" 
+                    (click)="getDateId($event, row[i].dateKey)" 
+                    [ngClass]="{'selected' : row[i].isSelected && !row[i].isSunday && !row[i].isSunday,
+                                'unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                                'passed-selected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                                'passed-unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday}"
+                                [disabled]="row[i].isPast || row[i].isSunday">
+                                <svg *ngIf="row[i].isSunday || row[i].isHoliday" class="icon logo" focusable="false">
+                                  <use xlink:href="assets/static/icons/icon-CH-logo.svg#asset"></use>
+                                  <title>Cardinal Health</title>
+                              </svg>
+                              <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                                  <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+                                  <title>Cardinal Health</title>
+                              </svg>
+                              <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                                  <use xlink:href="assets/static/icons/icon-checkbox2.svg#asset"></use>
+                                  <title>Cardinal Health</title>
+                              </svg>
                     {{row[i].dateNumber}}<br>
                     {{row[i].dayOfWeek}}
             </div>
@@ -177,7 +356,28 @@
            
           <td  *ngFor="let column of days; let i = index;">
             <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
-                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                <input  
+                type="checkbox" 
+                name="row[i].datekey" 
+                value="row[i].dateKey" 
+                (click)="getDateId($event, row[i].dateKey)" 
+                [ngClass]="{'selected' : row[i].isSelected && !row[i].isSunday && !row[i].isSunday,
+                            'unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                            'passed-selected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                            'passed-unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday}"
+                            [disabled]="row[i].isPast || row[i].isSunday">
+                            <svg *ngIf="row[i].isSunday || row[i].isHoliday" class="icon logo" focusable="false">
+                              <use xlink:href="assets/static/icons/icon-CH-logo.svg#asset"></use>
+                              <title>Cardinal Health</title>
+                          </svg>
+                          <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                              <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+                              <title>Cardinal Health</title>
+                          </svg>
+                          <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                              <use xlink:href="assets/static/icons/icon-checkbox2.svg#asset"></use>
+                              <title>Cardinal Health</title>
+                          </svg>
                     {{row[i].dateNumber}}<br>
                     {{row[i].dayOfWeek}}
             </div>
@@ -191,7 +391,28 @@
            
           <td  *ngFor="let column of days; let i = index;">
             <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
-                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                <input
+                type="checkbox" 
+                name="row[i].datekey" 
+                value="row[i].dateKey" 
+                (click)="getDateId($event, row[i].dateKey)" 
+                [ngClass]="{'selected' : row[i].isSelected && !row[i].isSunday && !row[i].isSunday,
+                            'unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                            'passed-selected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                            'passed-unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday}"
+                            [disabled]="row[i].isPast || row[i].isSunday">
+                            <svg *ngIf="row[i].isSunday || row[i].isHoliday" class="icon logo" focusable="false">
+                              <use xlink:href="assets/static/icons/icon-CH-logo.svg#asset"></use>
+                              <title>Cardinal Health</title>
+                          </svg>
+                          <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                              <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+                              <title>Cardinal Health</title>
+                          </svg>
+                          <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                              <use xlink:href="assets/static/icons/icon-checkbox2.svg#asset"></use>
+                              <title>Cardinal Health</title>
+                          </svg>
                     {{row[i].dateNumber}}<br>
                     {{row[i].dayOfWeek}}
             </div>
@@ -205,7 +426,28 @@
            
           <td  *ngFor="let column of days; let i = index;">
             <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
-                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                <input
+                type="checkbox" 
+                name="row[i].datekey" 
+                value="row[i].dateKey" 
+                (click)="getDateId($event, row[i].dateKey)" 
+                [ngClass]="{'selected' : row[i].isSelected && !row[i].isSunday && !row[i].isSunday,
+                            'unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                            'passed-selected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                            'passed-unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday}"
+                            [disabled]="row[i].isPast || row[i].isSunday">
+                            <svg *ngIf="row[i].isSunday || row[i].isHoliday" class="icon logo" focusable="false">
+                              <use xlink:href="assets/static/icons/icon-CH-logo.svg#asset"></use>
+                              <title>Cardinal Health</title>
+                          </svg>
+                          <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                              <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+                              <title>Cardinal Health</title>
+                          </svg>
+                          <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                              <use xlink:href="assets/static/icons/icon-checkbox2.svg#asset"></use>
+                              <title>Cardinal Health</title>
+                          </svg>
                     {{row[i].dateNumber}}<br>
                     {{row[i].dayOfWeek}}
             </div>
@@ -219,7 +461,28 @@
            
           <td  *ngFor="let column of days; let i = index;">
             <div *ngIf="row[i].dateNumber !== '00'" class="dateBox">
-                <input  type="checkbox" name="row[i].datekey" value="row[i].dateKey" (click)="getDateId($event, row[i].dateKey)" >
+                <input 
+                type="checkbox" 
+                    name="row[i].datekey" 
+                    value="row[i].dateKey" 
+                    (click)="getDateId($event, row[i].dateKey)" 
+                    [ngClass]="{'selected' : row[i].isSelected && !row[i].isSunday && !row[i].isSunday,
+                                'unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                                'passed-selected' : row[i].isSelected && row[i].isPast && row[i].isSunday,
+                                'passed-unselected' : row[i].isSelected && row[i].isPast && row[i].isSunday}"
+                                [disabled]="row[i].isPast || row[i].isSunday">
+                                <svg *ngIf="row[i].isSunday || row[i].isHoliday" class="icon logo" focusable="false">
+                                  <use xlink:href="assets/static/icons/icon-CH-logo.svg#asset"></use>
+                                  <title>Cardinal Health</title>
+                              </svg>
+                              <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                                  <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+                                  <title>Cardinal Health</title>
+                              </svg>
+                              <svg *ngIf="row[i].isSelected && row[i].isSunday" class="icon " focusable="false">
+                                  <use xlink:href="assets/static/icons/icon-checkbox2.svg#asset"></use>
+                                  <title>Cardinal Health</title>
+                              </svg>
                     {{row[i].dateNumber}}<br>
                     {{row[i].dayOfWeek}}
             </div>

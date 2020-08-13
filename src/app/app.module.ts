@@ -5,13 +5,15 @@ import { AppComponent } from './app.component';
 import { ArrayComponent } from './array/array.component';
 import { ObjectCalComponent } from './object-cal/object-cal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DateInputComponent } from './date-input/date-input.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ArrayComponent,
-    ObjectCalComponent
+    ObjectCalComponent,
+    DateInputComponent
   ],
   imports: [
     BrowserModule,
