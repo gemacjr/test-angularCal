@@ -62,36 +62,36 @@ export class ObjectCalComponent implements OnInit {
       dateKey: '01/03/2021',
       dateNumber: '03',
       dayOfWeek: 'TUE',
-      isSelected: false,
-      isPast: true,
-      isSunday: false,
+      isSelected: true,
+      isPast: false,
+      isDefault: false,
       isHoliday: false,
     },
     {
       dateKey: '02/15/2021',
       dateNumber: '15',
       dayOfWeek: 'WED',
-      isSelected: false,
-      isPast: true,
-      isSunday: false,
+      isDefault: false,
+      isSelected: true,
+      isPast: false,
       isHoliday: false,
     },
     {
       dateKey: '01/26/2021',
       dateNumber: '26',
       dayOfWeek: 'THU',
-      isSelected: false,
-      isPast: true,
-      isSunday: false,
+      isSelected: true,
+      isPast: false,
+      isDefault: false,
       isHoliday: false,
     },
     {
       dateKey: '03/17/2021',
       dateNumber: '17',
       dayOfWeek: 'FRI',
-      isSelected: false,
-      isPast: true,
-      isSunday: false,
+      isSelected: true,
+      isPast: false,
+      isDefault: false,
       isHoliday: false,
     },
   ];
@@ -115,6 +115,17 @@ export class ObjectCalComponent implements OnInit {
     //this.createMonthArray(this.myYearArray);
     this.selectedDates = new Array<string>();
   }
+
+  // getTooltipText() {
+  //   var text: string = "";
+  //   if (this.isDefault) {
+  //     text = "This is a standard Cardinal Health delivery closure. No customization is possible for this date.";
+  //   }
+  //   else {
+  //     text = "The submission time for this date has passed. Please contact customer service for further assistance.";
+  //   }
+  //   return text;
+  // }
 
   buildYearArrayForUi(year) {
     this.monthJanArray = this.buildMonthArrayFromyYearArray(
@@ -210,7 +221,6 @@ export class ObjectCalComponent implements OnInit {
     let day = {};
     let daySpare = {};
     let dayEnd = {};
-    let daySpareEnd = {};
     let monthArray = [];
     let month;
     let numberOfDaysInMonth = this.getDaysInaMonth(monthStr, yearStr);
@@ -228,8 +238,6 @@ export class ObjectCalComponent implements OnInit {
       } else {
         dayNumStr = (i + 1).toString();
       }
-      // console.log("This is day of week " + this.getDayOfWeek(month + '/' + dayNumStr + '/' + year));
-      // console.log("This is day of week " + this.getDayOfWeek(month + '/' + dayNumStr + '/' + year));
       day = {
         dateKey: month + '/' + dayNumStr + '/' + year,
         dateNumber: dayNumStr,
@@ -239,17 +247,12 @@ export class ObjectCalComponent implements OnInit {
           this.closureDates
         ),
         isPast: this.getIsPast(month + '/' + dayNumStr + '/' + year),
-        isSunday: this.getIsDefault(month + '/' + dayNumStr + '/' + year),
+        isDefault: this.getIsDefault(month + '/' + dayNumStr + '/' + year),
         isHoliday: this.getIsHoliday(
           month + '/' + dayNumStr + '/' + year,
           this.holidayDays
         ),
       };
-
-      let dayInlastWeek = this.getDayOfWeek(
-        month + '/' + numberOfDaysInMonth + '/' + year
-      );
-
       monthArray.push(day);
     }
 
@@ -265,7 +268,7 @@ export class ObjectCalComponent implements OnInit {
           dayOfWeek: '',
           isSelected: false,
           isPast: true,
-          isSunday: false,
+          isDefault: false,
           isHoliday: false,
         };
         monthArray.unshift(daySpare);
@@ -282,7 +285,7 @@ export class ObjectCalComponent implements OnInit {
           dayOfWeek: '',
           isSelected: false,
           isPast: true,
-          isSunday: false,
+          isDefault: false,
           isHoliday: false,
         };
         monthArray.push(dayEnd);
@@ -296,7 +299,7 @@ export class ObjectCalComponent implements OnInit {
           dayOfWeek: '',
           isSelected: false,
           isPast: true,
-          isSunday: false,
+          isDefault: false,
           isHoliday: false,
         };
         monthArray.push(dayEnd);

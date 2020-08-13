@@ -1,1 +1,31 @@
-<p>date-input works!</p>
+<button
+    *ngIf="!isPassed && !isDefault"
+    class="btn-date"
+    (click)="toggleSelected()"
+    [ngClass]="{'selected' : isSelected,
+                'unselected' : !isSelected}">
+    <input type="checkbox" id="{{dayOfMonth}}" />
+    <svg class="icon " focusable="false">
+        <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+        <title></title>
+    </svg>
+    <div class="day">{{dayOfWeek}}</div>
+    <div>{{dayOfMonth}}</div>
+</button>
+<div
+    *ngIf="isPassed || isDefault"
+    class="btn-date"
+    [ngClass]="{'passed-selected' : isSelected && isPassed && !isDefault,
+                'passed-unselected' : !isSelected && isPassed && !isDefault}"
+    placement="auto" triggers="click:blur" ngbTooltip="{{getTooltipText()}}">
+    <svg *ngIf="isDefault" class="icon logo" focusable="false">
+        <use xlink:href="assets/static/icons/icon-CH-logo.svg#asset"></use>
+        <title></title>
+    </svg>
+    <svg *ngIf="!isDefault" class="icon " focusable="false">
+        <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+        <title></title>
+    </svg>
+    <div class="day">{{dayOfWeek}}</div>
+    <div>{{dayOfMonth}}</div>
+</div>
