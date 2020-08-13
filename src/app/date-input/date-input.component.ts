@@ -14,14 +14,29 @@ export class DateInputComponent implements OnInit {
   @Input() isDefault: boolean = false;
   @Input() dayOfWeek: string;
   @Input() dayOfMonth: string;
+  @Input() dateKey: string;
 
-  toggleSelected() {
-    this.isSelected = !this.isSelected;
+  selectedDates: string[];
+
+  getDateId(e: any, dateId: string) {
     
+    console.log("I pressed it ")
+    if (e.target.checked) {
+      console.log(dateId + ' is Checked');
+      this.isSelected = !this.isSelected;
+      this.selectedDates.push(dateId);
+    } else {
+      console.log(dateId + 'unChecked');
+      this.isSelected = !this.isSelected;
+      this.selectedDates = this.selectedDates.filter((m) => m != dateId);
+    }
+    console.log('The array of closure Dates ' + this.selectedDates);
   }
 
 
   ngOnInit(): void {
+
+    this.selectedDates = new Array<string>();
   }
 
   getTooltipText() {
