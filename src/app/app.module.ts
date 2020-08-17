@@ -6,6 +6,8 @@ import { ArrayComponent } from './array/array.component';
 import { ObjectCalComponent } from './object-cal/object-cal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DateInputComponent } from './date-input/date-input.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 
 @NgModule({
@@ -18,7 +20,12 @@ import { DateInputComponent } from './date-input/date-input.component';
   imports: [
     BrowserModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+   
+  ],
+  exports: [
+    ScrollingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

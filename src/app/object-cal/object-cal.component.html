@@ -58,10 +58,57 @@
 
 <br>
 <br>
+<div class="container month-group">
+  <div class="row">
 
- <div class="container lol-lg-12">
+  <div class="col-xs-1" *ngFor="let month of testMyYearArray; let i = index">
+    
+    <!-- <h4>{{i }} {{ currentYear }}</h4> -->
+    
+    <table>
+    <tr *ngFor="let row of month;">
+      <td *ngFor="let column of days; let i = index;">
+          <div *ngIf="row[i].dateNumber !== '00'">
+            <button *ngIf="!row[i].isPast && !row[i].isDefault" class="btn-date" [ngClass]="{'selected' : row[i].isSelected,
+                'unselected' : !row[i].isSelected}" (click)="getDateId(row[i].isSelected, row[i].dateKey)">
+              <input type="checkbox" name="row[i].dateKey" value="row[i].dateKey" />
+              <svg class="icon " focusable="false">
+                <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+                <title></title>
+              </svg>
+              <div class="day">{{row[i].dateNumber}}</div>
+              <div>{{row[i].dayOfWeek}}</div>
+            </button>
+            <button *ngIf="row[i].isPast || row[i].isDefault" class="btn-date" [ngClass]="{'passed-selected' : row[i].isSelected && row[i].isPast && !row[i].isDefault,
+                'passed-unselected' : !row[i].isSelected && row[i].isPast && !row[i].isDefault}" placement="auto"
+              triggers="click:blur" ngbTooltip="{{getTooltipText(row[i].isPast)}}">
+              <svg *ngIf="row[i].isDefault" class="icon logo" focusable="false">
+                <use xlink:href="assets/static/icons/icon-CH-logo.svg#asset"></use>
+                <title></title>
+              </svg>
+              <svg *ngIf="!row[i].isDefault" class="icon " focusable="false">
+                <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+                <title></title>
+              </svg>
+              <div class="day">{{row[i].dateNumber}}</div>
+              <div>{{row[i].dayOfWeek}}</div>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  </div>
 
-<div class="scrollmenu">
+  </div>
+<div class="container">
+  <input type="button" (click)="submitClosureDates()" value="submit">
+</div>
+
+
+ <!-- <div class="container lol-lg-12"> -->
+
+<!-- <div class="scrollmenu">
     
     <table >
         <caption>JAN {{ currentYear }}</caption>
@@ -70,15 +117,42 @@
            
           <td  *ngFor="let column of days; let i = index;">
             <div *ngIf="row[i].dateNumber !== '00'" >
-              <app-date-input
-              [isPassed]="row[i].isPast"
-              [isSelected]="row[i].isSelected"
-              [dayOfWeek]="row[i].dateNumber"
-              [dayOfMonth]="row[i].dayOfWeek"
-              [isDefault]="row[i].isDefault"
-              [dateKey]="row[i].dateKey"
-              >
-              </app-date-input>
+              <button *ngIf="!row[i].isPast && !row[i].isDefault"
+    class="btn-date"
+    [ngClass]="{'selected' : row[i].isSelected,
+                'unselected' : !row[i].isSelected}"
+                (click)="getDateId(row[i].isSelected, row[i].dateKey)"
+                >
+    <input 
+        
+        type="checkbox" 
+        name="row[i].dateKey"
+        value="row[i].dateKey" 
+        />
+    <svg class="icon " focusable="false">
+        <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+        <title></title>
+    </svg>
+    <div class="day">{{row[i].dateNumber}}</div>
+    <div>{{row[i].dayOfWeek}}</div>
+  </button>
+<button
+    *ngIf="row[i].isPast || row[i].isDefault"
+    class="btn-date"
+    [ngClass]="{'passed-selected' : row[i].isSelected && row[i].isPast && !row[i].isDefault,
+                'passed-unselected' : !row[i].isSelected && row[i].isPast && !row[i].isDefault}"
+    placement="auto" triggers="click:blur" ngbTooltip="{{getTooltipText()}}">
+    <svg *ngIf="row[i].isDefault" class="icon logo" focusable="false">
+        <use xlink:href="assets/static/icons/icon-CH-logo.svg#asset"></use>
+        <title></title>
+    </svg>
+    <svg *ngIf="!row[i].isDefault" class="icon " focusable="false">
+        <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+        <title></title>
+    </svg>
+    <div class="day">{{row[i].dateNumber}}</div>
+    <div>{{row[i].dayOfWeek}}</div>
+</button>
             </div>
         </td>
     </tr>
@@ -311,4 +385,4 @@
       </table>
 </div>
     
-</div>
+</div> -->

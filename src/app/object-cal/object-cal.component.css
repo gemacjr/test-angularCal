@@ -2,10 +2,10 @@
     height: 84px;
 }
 
-.table {
+/* .table {
     display: table;
     width: 200px;
-}
+} */
 
 ul#horizontal-list {
     min-width: 696px;
@@ -36,9 +36,7 @@ li label {
     
 }
 
-table caption {
-    text-align: center;
-}
+
 
 div.scrollmenu {
     
@@ -46,7 +44,7 @@ div.scrollmenu {
     white-space: nowrap;
   }
   
-  div.scrollmenu table {
+  div.scrollmenu {
     display: inline-block;
     
    
@@ -62,4 +60,14 @@ div.scrollmenu {
 div.dateBox:disabled  {
     background: red;
 }
-  
+
+
+div.month-group > .row {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+div.month-group > .row > .col-xs-4 {
+    display: inline-block;
+    float: none;
+}

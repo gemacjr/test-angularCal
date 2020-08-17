@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { getLocaleDateFormat } from '@angular/common';
+import { OnInit, ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import * as Holidays from 'date-holidays';
 
 
 @Component({
   selector: 'app-object-cal',
   templateUrl: './object-cal.component.html',
   styleUrls: ['./object-cal.component.css'],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ObjectCalComponent implements OnInit {
   currentYear = 2021;
@@ -34,6 +36,8 @@ export class ObjectCalComponent implements OnInit {
 
   constructor() {}
 
+  testMyYearArray = [];
+
   myYearArray;
   newDate;
   holidayDays = [
@@ -55,7 +59,7 @@ export class ObjectCalComponent implements OnInit {
 
   days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
-  closureDates = ['02/02/2020', '08/06/2020', '08/07/2020'];
+  closureDates = ['02/02/2021', '08/06/2021', '08/07/2021'];
 
   currentClosure = [
     {
@@ -100,6 +104,8 @@ export class ObjectCalComponent implements OnInit {
     //console.log(this.buildYearArray())
     // console.log(this.buildMonthArray('JAN', '01/02/2020'));
     //console.log(this.monthOne)
+    console.log(this.getHolidaysByYear(2020))
+    
     this.currentClosure;
     this.myYearArray = this.buildYearArray('2020');
     this.newDate = this.myYearArray[0][0];
@@ -108,6 +114,7 @@ export class ObjectCalComponent implements OnInit {
 
     this.buildYearArrayForUi('2022');
     //console.log(this.buildMonthArray("02", "2021"));
+    this.testbuildYearArrayForUi('2021')
 
     this.testmonthJan = this.buildMonthArray('01', '2021');
     //console.log(this.buildMonthArray("02", "2021"))
@@ -115,17 +122,22 @@ export class ObjectCalComponent implements OnInit {
     //this.createMonthArray(this.myYearArray);
     this.selectedDates = new Array<string>();
   }
+  submitClosureDates(){
+    let submittedClosureDates = JSON.stringify(this.closureDates)
+    console.log("These are the closure dates " + submittedClosureDates);
+  }
 
-  // getTooltipText() {
-  //   var text: string = "";
-  //   if (this.isDefault) {
-  //     text = "This is a standard Cardinal Health delivery closure. No customization is possible for this date.";
-  //   }
-  //   else {
-  //     text = "The submission time for this date has passed. Please contact customer service for further assistance.";
-  //   }
-  //   return text;
-  // }
+  getTooltipText(isPast: boolean) {
+    var text: string = "";
+    if (isPast) {
+      text = "This is a standard Cardinal Health delivery closure. No customization is possible for this date.";
+    }
+    else {
+      text = "The submission time for this date has passed. Please contact customer service for further assistance.";
+    }
+    return text;
+  }
+
 
   buildYearArrayForUi(year) {
     this.monthJanArray = this.buildMonthArrayFromyYearArray(
@@ -166,6 +178,52 @@ export class ObjectCalComponent implements OnInit {
     );
   }
 
+  testbuildYearArrayForUi(year) {
+    this.monthJanArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('01', year)
+    );
+    this.monthFebArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('02', year)
+    );
+    this.monthMarArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('03', year)
+    );
+    this.monthAprArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('04', year)
+    );
+    this.monthMayArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('05', year)
+    );
+    this.monthJuneArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('06', year)
+    );
+    this.monthJulyArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('07', year)
+    );
+    this.monthAugArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('08', year)
+    );
+    this.monthSeptArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('09', year)
+    );
+    this.monthOctArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('10', year)
+    );
+    this.monthNovArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('11', year)
+    );
+    this.monthDecArray = this.buildMonthArrayFromyYearArray(
+      this.buildMonthArray('12', year)
+    );
+    this.testMyYearArray =[
+      this.monthJanArray,this.monthFebArray,this.monthMarArray,this.monthAprArray,
+      this.monthMayArray,this.monthJuneArray,this.monthJulyArray,this.monthAugArray,
+      this.monthSeptArray,this.monthOctArray,this.monthNovArray,this.monthDecArray,
+
+    ]
+    return this.testMyYearArray;
+  }
+
   buildYearArray(currentYear) {
     let year = [];
     for (let i = 0; i < 12; i++) {
@@ -176,18 +234,28 @@ export class ObjectCalComponent implements OnInit {
   }
 
   getYear(year) {
-    this.buildYearArrayForUi(year);
+    this.testbuildYearArrayForUi(year);
   }
 
-  getDateId(e: any, dateId: string) {
-    if (e.target.checked) {
+  ///IT works Aug
+
+  getDateId(isSelectedNow: any, dateId: string) {
+    let splitDate = dateId.split("/", 3);
+    let currentYear = splitDate[2]
+    console.log("This is selected " + isSelectedNow)
+    if (isSelectedNow === false) {
       console.log(dateId + ' is Checked');
-      this.selectedDates.push(dateId);
+      this.closureDates.push(dateId);
+      
     } else {
       console.log(dateId + 'unChecked');
-      this.selectedDates = this.selectedDates.filter((m) => m != dateId);
+      
+      this.closureDates = this.closureDates.filter((m) => m != dateId);
     }
-    console.log('The array of closure Dates ' + this.selectedDates);
+
+    this.testbuildYearArrayForUi(currentYear);
+    console.log('The array of closure Dates ' + this.closureDates);
+    
   }
 
   buildMonthArrayFromyYearArray(arrayOfWeeks) {
@@ -391,7 +459,7 @@ export class ObjectCalComponent implements OnInit {
   getIsDefault(dateString): boolean {
     let isSunday;
     this.getDayOfWeek(dateString);
-    if (this.getDayOfWeek(dateString) === 'SUN') {
+    if (this.getDayOfWeek(dateString) === 'SUN' || this.getDayOfWeek(dateString) === 'SAT' ) {
       isSunday = true;
     } else {
       isSunday = false;
@@ -399,43 +467,11 @@ export class ObjectCalComponent implements OnInit {
     return isSunday;
   }
 
-  isHoliday(date) {
-    // static holidays
-    const isDate = (d, month, date) => {
-      return d.getMonth() == month - 1 && d.getDate() == date;
-    };
-    if (isDate(date, 1, 1)) {
-      return 'New Year';
-    } else if (isDate(date, 7, 4)) {
-      return 'Independence Day';
-    } else if (isDate(date, 12, 25)) {
-      return 'Christmas Day';
-    }
-
-    // dynamic holidays
-    const isDay = (d, month, day, occurance) => {
-      if (d.getMonth() == month - 1 && d.getDay() == day) {
-        if (occurance > 0) {
-          return occurance == Math.ceil(d.getDate() / 7);
-        } else {
-          // check last occurance
-          let _d = new Date(d);
-          _d.setDate(d.getDate() + 7);
-          return _d.getMonth() > d.getMonth();
-        }
-      }
-      return false;
-    };
-    if (isDay(date, 5, 1, -1)) {
-      return 'Memorial Day';
-    } else if (isDay(date, 9, 1, 1)) {
-      return 'Labor Day';
-    } else if (isDay(date, 11, 4, 4)) {
-      return 'Thanksgiving Day';
-    }
-
-    // not a holiday
-    return '';
+  getHolidaysByYear(year){
+    let hd = new Holidays('US');
+    
+    hd.getHolidays(year)
+    console.log(hd.getHolidays(year))
   }
 
   getFirstDayOfWeekLength(dayOfFirstWeek) {

@@ -1,12 +1,13 @@
 <div *ngIf="!isPassed && !isDefault"
     class="btn-date"
     [ngClass]="{'selected' : isSelected,
-                'unselected' : !isSelected}">
+                'unselected' : !isSelected}"
+                >
     <input 
+        (click)="getDateId($event, dateKey)"
         type="checkbox" 
-        name="dateKey" 
         value="dateKey" 
-        (click)="getDateId($event, dateKey)"/>
+        />
     <svg class="icon " focusable="false">
         <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
         <title></title>
@@ -14,7 +15,7 @@
     <div class="day">{{dayOfWeek}}</div>
     <div>{{dayOfMonth}}</div>
 </div>
-<div
+<button
     *ngIf="isPassed || isDefault"
     class="btn-date"
     [ngClass]="{'passed-selected' : isSelected && isPassed && !isDefault,
@@ -30,4 +31,4 @@
     </svg>
     <div class="day">{{dayOfWeek}}</div>
     <div>{{dayOfMonth}}</div>
-</div>
+</button>
