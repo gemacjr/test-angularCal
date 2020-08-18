@@ -28,32 +28,41 @@
 <br>
 <br>
 
-
 <div class="container">
-    <h4>Closure Dates</h4>
-    <div class="row col-md-2">
-        <div id="menu-outer">
-            <div class="table">
-                {{ currentYear }}
-                <ul id="horizontal-list">
+<div class="row">
+    <h4>Closure Dates </h4> <span>   </span><h4> {{currentYear }}</h4>
+                    <div  *ngFor="let day of updatedClosureDates; let i = index;">
                     
-                    <li *ngFor="let day of currentClosure ">
-                        
-                      <app-date-input
-                      [isPassed]="day.isPast"
-                      [isSelected]="day.isSelected"
-                      [dayOfWeek]="day.dateNumber"
-                      [dayOfMonth]="day.dayOfWeek"
-                      [isDefault]="day.isDefault"
-                      >
-                      </app-date-input>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-        
-    </div>
+                       
+                          <button *ngIf="!day.isPast && !day.isDefault" class="btn-date" [ngClass]="{'selected' : day.isSelected,
+                'unselected' : !day.isSelected}" (click)="getDateId(day.isSelected, day.dateKey)">
+              <input type="checkbox" name="day.dateKey" value="day.dateKey" />
+              <svg class="icon " focusable="false">
+                <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+                <title></title>
+              </svg>
+              <div class="day">{{day.dateNumber}}</div>
+              <div>{{day.dayOfWeek}}</div>
+            </button>
+            <button *ngIf="day.isPast || day.isDefault" class="btn-date" [ngClass]="{'passed-selected' : day.isSelected && day.isPast && !day.isDefault,
+                'passed-unselected' : !day.isSelected && day.isPast && !day.isDefault}" placement="auto"
+              triggers="click:blur" ngbTooltip="{{getTooltipText(day.isPast)}}">
+              <svg *ngIf="day.isDefault" class="icon logo" focusable="false">
+                <use xlink:href="assets/static/icons/icon-CH-logo.svg#asset"></use>
+                <title></title>
+              </svg>
+              <svg *ngIf="!day.isDefault" class="icon " focusable="false">
+                <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+                <title></title>
+              </svg>
+              <div class="day">{{day.dateNumber}}</div>
+              <div>{{day.dayOfWeek}}</div>
+            </button>
+                      
+</div>              
+           
+</div>
+    
 </div>
 
 <br>
@@ -63,7 +72,7 @@
 
   <div class="col-xs-1" *ngFor="let month of testMyYearArray; let i = index">
     
-    <!-- <h4>{{i }} {{ currentYear }}</h4> -->
+    <h4>{{i }} {{ currentYear }}</h4>
     
     <table>
     <tr *ngFor="let row of month;">

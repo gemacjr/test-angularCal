@@ -59,7 +59,9 @@ export class ObjectCalComponent implements OnInit {
 
   days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
-  closureDates = ['02/02/2021', '08/06/2021', '08/07/2021'];
+  closureDates = [];
+
+  updatedClosureDates = [];
 
   currentClosure = [
     {
@@ -105,26 +107,56 @@ export class ObjectCalComponent implements OnInit {
     // console.log(this.buildMonthArray('JAN', '01/02/2020'));
     //console.log(this.monthOne)
     console.log(this.getHolidaysByYear(2020))
-    
+    this.updatedClosureDates =[];
     this.currentClosure;
     this.myYearArray = this.buildYearArray('2020');
     this.newDate = this.myYearArray[0][0];
     this.newDate.isSelected = true;
     this.days;
-
-    this.buildYearArrayForUi('2022');
+    
+    //this.buildYearArrayForUi('2022');
     //console.log(this.buildMonthArray("02", "2021"));
     this.testbuildYearArrayForUi('2021')
+
+    console.log(this.testbuildYearArrayForUi('2021'))
 
     this.testmonthJan = this.buildMonthArray('01', '2021');
     //console.log(this.buildMonthArray("02", "2021"))
     //console.log(this.myYearArray[0]);
     //this.createMonthArray(this.myYearArray);
     this.selectedDates = new Array<string>();
+
+    console.log("The current closure dates " + JSON.stringify(this.closureDates))
+  }
+
+  displayCurrentPharmacyClosures(updatedClosureDates){
+
+    let dayClosure ={}
+    this.updatedClosureDates = [];
+
+    for(let i = 0; i < updatedClosureDates.length; i++){
+      let tmpDay = updatedClosureDates[i];
+      let dateStr = tmpDay.split("/");
+      let month = dateStr[0];
+      let dayNumStr = dateStr[1];
+      let year = dateStr[2];
+      dayClosure = {
+        dateKey: month + '/' + dayNumStr + '/' + year,
+        dateNumber: dayNumStr,
+        dayOfWeek: this.getDayOfWeek(month + '/' + dayNumStr + '/' + year),
+        isSelected: true,
+        isPast: this.getIsPast(month + '/' + dayNumStr + '/' + year),
+        isDefault: false,
+      };
+      this.updatedClosureDates.push(dayClosure);
+    }
+    
+    return this.updatedClosureDates;
   }
   submitClosureDates(){
     let submittedClosureDates = JSON.stringify(this.closureDates)
     console.log("These are the closure dates " + submittedClosureDates);
+
   }
 
   getTooltipText(isPast: boolean) {
@@ -139,44 +171,44 @@ export class ObjectCalComponent implements OnInit {
   }
 
 
-  buildYearArrayForUi(year) {
-    this.monthJanArray = this.buildMonthArrayFromyYearArray(
-      this.buildMonthArray('01', year)
-    );
-    this.monthFebArray = this.buildMonthArrayFromyYearArray(
-      this.buildMonthArray('02', year)
-    );
-    this.monthMarArray = this.buildMonthArrayFromyYearArray(
-      this.buildMonthArray('03', year)
-    );
-    this.monthAprArray = this.buildMonthArrayFromyYearArray(
-      this.buildMonthArray('04', year)
-    );
-    this.monthMayArray = this.buildMonthArrayFromyYearArray(
-      this.buildMonthArray('05', year)
-    );
-    this.monthJuneArray = this.buildMonthArrayFromyYearArray(
-      this.buildMonthArray('06', year)
-    );
-    this.monthJulyArray = this.buildMonthArrayFromyYearArray(
-      this.buildMonthArray('07', year)
-    );
-    this.monthAugArray = this.buildMonthArrayFromyYearArray(
-      this.buildMonthArray('08', year)
-    );
-    this.monthSeptArray = this.buildMonthArrayFromyYearArray(
-      this.buildMonthArray('09', year)
-    );
-    this.monthOctArray = this.buildMonthArrayFromyYearArray(
-      this.buildMonthArray('10', year)
-    );
-    this.monthNovArray = this.buildMonthArrayFromyYearArray(
-      this.buildMonthArray('11', year)
-    );
-    this.monthDecArray = this.buildMonthArrayFromyYearArray(
-      this.buildMonthArray('12', year)
-    );
-  }
+  // buildYearArrayForUi(year) {
+  //   this.monthJanArray = this.buildMonthArrayFromyYearArray(
+  //     this.buildMonthArray('01', year)
+  //   );
+  //   this.monthFebArray = this.buildMonthArrayFromyYearArray(
+  //     this.buildMonthArray('02', year)
+  //   );
+  //   this.monthMarArray = this.buildMonthArrayFromyYearArray(
+  //     this.buildMonthArray('03', year)
+  //   );
+  //   this.monthAprArray = this.buildMonthArrayFromyYearArray(
+  //     this.buildMonthArray('04', year)
+  //   );
+  //   this.monthMayArray = this.buildMonthArrayFromyYearArray(
+  //     this.buildMonthArray('05', year)
+  //   );
+  //   this.monthJuneArray = this.buildMonthArrayFromyYearArray(
+  //     this.buildMonthArray('06', year)
+  //   );
+  //   this.monthJulyArray = this.buildMonthArrayFromyYearArray(
+  //     this.buildMonthArray('07', year)
+  //   );
+  //   this.monthAugArray = this.buildMonthArrayFromyYearArray(
+  //     this.buildMonthArray('08', year)
+  //   );
+  //   this.monthSeptArray = this.buildMonthArrayFromyYearArray(
+  //     this.buildMonthArray('09', year)
+  //   );
+  //   this.monthOctArray = this.buildMonthArrayFromyYearArray(
+  //     this.buildMonthArray('10', year)
+  //   );
+  //   this.monthNovArray = this.buildMonthArrayFromyYearArray(
+  //     this.buildMonthArray('11', year)
+  //   );
+  //   this.monthDecArray = this.buildMonthArrayFromyYearArray(
+  //     this.buildMonthArray('12', year)
+  //   );
+  // }
 
   testbuildYearArrayForUi(year) {
     this.monthJanArray = this.buildMonthArrayFromyYearArray(
@@ -254,6 +286,7 @@ export class ObjectCalComponent implements OnInit {
     }
 
     this.testbuildYearArrayForUi(currentYear);
+    this.displayCurrentPharmacyClosures(this.closureDates);
     console.log('The array of closure Dates ' + this.closureDates);
     
   }
@@ -315,11 +348,7 @@ export class ObjectCalComponent implements OnInit {
           this.closureDates
         ),
         isPast: this.getIsPast(month + '/' + dayNumStr + '/' + year),
-        isDefault: this.getIsDefault(month + '/' + dayNumStr + '/' + year),
-        isHoliday: this.getIsHoliday(
-          month + '/' + dayNumStr + '/' + year,
-          this.holidayDays
-        ),
+        isDefault: this.getIsDefault(month + '/' + dayNumStr + '/' + year)
       };
       monthArray.push(day);
     }
@@ -336,8 +365,7 @@ export class ObjectCalComponent implements OnInit {
           dayOfWeek: '',
           isSelected: false,
           isPast: true,
-          isDefault: false,
-          isHoliday: false,
+          isDefault: false
         };
         monthArray.unshift(daySpare);
       }
@@ -353,8 +381,7 @@ export class ObjectCalComponent implements OnInit {
           dayOfWeek: '',
           isSelected: false,
           isPast: true,
-          isDefault: false,
-          isHoliday: false,
+          isDefault: false
         };
         monthArray.push(dayEnd);
       }
@@ -367,8 +394,7 @@ export class ObjectCalComponent implements OnInit {
           dayOfWeek: '',
           isSelected: false,
           isPast: true,
-          isDefault: false,
-          isHoliday: false,
+          isDefault: false
         };
         monthArray.push(dayEnd);
       }
