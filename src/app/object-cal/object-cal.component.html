@@ -7,16 +7,16 @@
 <div class ="container">
     <form>
     <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="currentYear">
-      <label ngbButtonLabel class="btn-danger">
-        <input ngbButton type="radio"  value="2021" (click)="getYear('2020')" > 2020
+      <label ngbButtonLabel class="btn-outline-danger">
+        <input ngbButton type="radio"  value="2020" (click)="getYear('2020')" > 2020
       </label>
-        <label ngbButtonLabel class="btn-danger">
+        <label ngbButtonLabel class="btn-outline-danger">
           <input ngbButton type="radio"  value="2021" (click)="getYear('2021')" > 2021
         </label>
-        <label ngbButtonLabel class="btn-danger">
+        <label ngbButtonLabel class="btn-outline-danger">
           <input ngbButton type="radio" value="2022" (click)="getYear('2022')"> 2022
         </label>
-        <label ngbButtonLabel class="btn-danger">
+        <label ngbButtonLabel class="btn-outline-danger">
           <input ngbButton type="radio" [value]="2023" (click)="getYear('2023')"> 2023
         </label>
       </div>
@@ -29,50 +29,210 @@
 <br>
 
 <div class="container">
-<div class="row">
-    <h4>Closure Dates </h4> <span>   </span><h4> {{currentYear }}</h4>
-                    <div  *ngFor="let day of updatedClosureDates; let i = index;">
-                    
-                       
-                          <button *ngIf="!day.isPast && !day.isDefault" class="btn-date" [ngClass]="{'selected' : day.isSelected,
-                'unselected' : !day.isSelected}" (click)="getDateId(day.isSelected, day.dateKey)">
-              <input type="checkbox" name="day.dateKey" value="day.dateKey" />
-              <svg class="icon " focusable="false">
-                <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
-                <title></title>
-              </svg>
-              <div class="day">{{day.dateNumber}}</div>
-              <div>{{day.dayOfWeek}}</div>
-            </button>
-            <button *ngIf="day.isPast || day.isDefault" class="btn-date" [ngClass]="{'passed-selected' : day.isSelected && day.isPast && !day.isDefault,
-                'passed-unselected' : !day.isSelected && day.isPast && !day.isDefault}" placement="auto"
-              triggers="click:blur" ngbTooltip="{{getTooltipText(day.isPast)}}">
-              <svg *ngIf="day.isDefault" class="icon logo" focusable="false">
-                <use xlink:href="assets/static/icons/icon-CH-logo.svg#asset"></use>
-                <title></title>
-              </svg>
-              <svg *ngIf="!day.isDefault" class="icon " focusable="false">
-                <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
-                <title></title>
-              </svg>
-              <div class="day">{{day.dateNumber}}</div>
-              <div>{{day.dayOfWeek}}</div>
-            </button>
-                      
-</div>              
-           
-</div>
-    
+  <div class="row col-md-12">
+    <h4>Closure Dates </h4> <span> </span>
+    <h4> {{currentYear }}</h4>
+    <div *ngFor="let day of updatedClosureDates; let i = index;" [ngSwitch]="day.dateKey | dateMonth">
+
+      <div *ngSwitchCase="'01'">
+        <button *ngIf="!day.isPast && !day.isDefault" class="btn-date" [ngClass]="{'selected' : day.isSelected,
+                            'unselected' : !day.isSelected}" (click)="getDateId(day.isSelected, day.dateKey)">
+          <svg class="icon " focusable="false">
+            <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+            <title></title>
+          </svg>
+          <div class="day">{{day.dateKey | monthStr }}
+            {{day.dateKey | yearStr}}</div>
+          <div class="day">{{day.dateNumber}}</div>
+          <div>{{day.dayOfWeek}}</div>
+          
+        </button>
+
+      </div>
+      <div *ngSwitchCase="'02'">
+       
+        <button *ngIf="!day.isPast && !day.isDefault" class="btn-date" [ngClass]="{'selected' : day.isSelected,
+      'unselected' : !day.isSelected}" (click)="getDateId(day.isSelected, day.dateKey)">
+          <svg class="icon " focusable="false">
+            <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+            <title></title>
+          </svg>
+
+          <div class="day">{{day.dateKey | monthStr }}
+            {{day.dateKey | yearStr}}</div>
+          <div class="day">{{day.dateNumber}}</div>
+          <div>{{day.dayOfWeek}}</div>
+        </button>
+      </div>
+      <div *ngSwitchCase="'03'">
+       
+
+        <button *ngIf="!day.isPast && !day.isDefault" class="btn-date" [ngClass]="{'selected' : day.isSelected,
+      'unselected' : !day.isSelected}" (click)="getDateId(day.isSelected, day.dateKey)">
+          <svg class="icon " focusable="false">
+            <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+            <title></title>
+          </svg>
+
+          <div class="day">{{day.dateKey | monthStr }}
+            {{day.dateKey | yearStr}}</div>
+          <div class="day">{{day.dateNumber}}</div>
+          <div>{{day.dayOfWeek}}</div>
+        </button>
+      </div>
+      <div *ngSwitchCase="'04'">
+        
+        <button *ngIf="!day.isPast && !day.isDefault" class="btn-date" [ngClass]="{'selected' : day.isSelected,
+      'unselected' : !day.isSelected}" (click)="getDateId(day.isSelected, day.dateKey)">
+          <svg class="icon " focusable="false">
+            <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+            <title></title>
+          </svg>
+
+          <div class="day">{{day.dateKey | monthStr }}
+            {{day.dateKey | yearStr}}</div>
+          <div class="day">{{day.dateNumber}}</div>
+          <div>{{day.dayOfWeek}}</div>
+        </button>
+      </div>
+      <div *ngSwitchCase="'05'">
+        
+        <button *ngIf="!day.isPast && !day.isDefault" class="btn-date" [ngClass]="{'selected' : day.isSelected,
+      'unselected' : !day.isSelected}" (click)="getDateId(day.isSelected, day.dateKey)">
+          <svg class="icon " focusable="false">
+            <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+            <title></title>
+          </svg>
+
+          <div class="day">{{day.dateKey | monthStr }}
+            {{day.dateKey | yearStr}}</div>
+          <div class="day">{{day.dateNumber}}</div>
+          <div>{{day.dayOfWeek}}</div>
+        </button>
+      </div>
+      <div *ngSwitchCase="'06'">
+        
+        <button *ngIf="!day.isPast && !day.isDefault" class="btn-date" [ngClass]="{'selected' : day.isSelected,
+      'unselected' : !day.isSelected}" (click)="getDateId(day.isSelected, day.dateKey)">
+          <svg class="icon " focusable="false">
+            <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+            <title></title>
+          </svg>
+
+          <div class="day">{{day.dateKey | monthStr }}
+            {{day.dateKey | yearStr}}</div>
+          <div class="day">{{day.dateNumber}}</div>
+          <div>{{day.dayOfWeek}}</div>
+        </button>
+      </div>
+      <div *ngSwitchCase="'07'">
+        
+        <button *ngIf="!day.isPast && !day.isDefault" class="btn-date" [ngClass]="{'selected' : day.isSelected,
+      'unselected' : !day.isSelected}" (click)="getDateId(day.isSelected, day.dateKey)">
+          <svg class="icon " focusable="false">
+            <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+            <title></title>
+          </svg>
+
+          <div class="day">{{day.dateKey | monthStr }}
+            {{day.dateKey | yearStr}}</div>
+          <div class="day">{{day.dateNumber}}</div>
+          <div>{{day.dayOfWeek}}</div>
+        </button>
+      </div>
+      <div *ngSwitchCase="'08'">
+       
+        <button *ngIf="!day.isPast && !day.isDefault" class="btn-date" [ngClass]="{'selected' : day.isSelected,
+      'unselected' : !day.isSelected}" (click)="getDateId(day.isSelected, day.dateKey)">
+          <svg class="icon " focusable="false">
+            <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+            <title></title>
+          </svg>
+
+          <div class="day">{{day.dateKey | monthStr }}
+            {{day.dateKey | yearStr}}</div>
+          <div class="day">{{day.dateNumber}}</div>
+          <div>{{day.dayOfWeek}}</div>
+        </button>
+      </div>
+      <div *ngSwitchCase="'09'">
+        
+        <button *ngIf="!day.isPast && !day.isDefault" class="btn-date" [ngClass]="{'selected' : day.isSelected,
+      'unselected' : !day.isSelected}" (click)="getDateId(day.isSelected, day.dateKey)">
+          <svg class="icon " focusable="false">
+            <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+            <title></title>
+          </svg>
+
+          <div class="day">{{day.dateKey | monthStr }}
+            {{day.dateKey | yearStr}}</div>
+          <div class="day">{{day.dateNumber}}</div>
+          <div>{{day.dayOfWeek}}</div>
+        </button>
+      </div>
+      <div *ngSwitchCase="'10'">
+        
+        <button *ngIf="!day.isPast && !day.isDefault" class="btn-date" [ngClass]="{'selected' : day.isSelected,
+      'unselected' : !day.isSelected}" (click)="getDateId(day.isSelected, day.dateKey)">
+          <svg class="icon " focusable="false">
+            <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+            <title></title>
+          </svg>
+
+          <div class="day">{{day.dateKey | monthStr }}
+            {{day.dateKey | yearStr}}</div>
+          <div class="day">{{day.dateNumber}}</div>
+          <div>{{day.dayOfWeek}}</div>
+        </button>
+      </div>
+      <div *ngSwitchCase="'11'">
+        
+        <button *ngIf="!day.isPast && !day.isDefault" class="btn-date" [ngClass]="{'selected' : day.isSelected,
+      'unselected' : !day.isSelected}" (click)="getDateId(day.isSelected, day.dateKey)">
+          <svg class="icon " focusable="false">
+            <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+            <title></title>
+          </svg>
+
+          <div class="day">{{day.dateKey | monthStr }}
+            {{day.dateKey | yearStr}}</div>
+          <div class="day">{{day.dateNumber}}</div>
+          <div>{{day.dayOfWeek}}</div>
+        </button>
+      </div>
+      <div *ngSwitchCase="'12'">
+        
+        <button *ngIf="!day.isPast && !day.isDefault" class="btn-date" [ngClass]="{'selected' : day.isSelected,
+      'unselected' : !day.isSelected}" (click)="getDateId(day.isSelected, day.dateKey)">
+          <svg class="icon " focusable="false">
+            <use xlink:href="assets/static/icons/icon-checkmark.svg#asset"></use>
+            <title></title>
+          </svg>
+
+          <div class="day">{{day.dateKey | monthStr }}
+            {{day.dateKey | yearStr}}</div>
+          <div class="day">{{day.dateNumber}}</div>
+          <div>{{day.dayOfWeek}}</div>
+        </button>
+      </div>
+      
+      
+
+
+    </div>
+
+  </div>
+
 </div>
 
 <br>
 <br>
-<div class="container month-group">
+<div class="container-xl month-group">
   <div class="row">
 
   <div class="col-xs-1" *ngFor="let month of testMyYearArray; let i = index">
     
-    <h4>{{i }} {{ currentYear }}</h4>
+    <h4>{{i | month }} {{ currentYear }}</h4>
     
     <table>
     <tr *ngFor="let row of month;">
@@ -111,9 +271,13 @@
 
   </div>
 <div class="container">
-  <input type="button" (click)="submitClosureDates()" value="submit">
+  <div class="row justify-content-end">
+      <button type="button" class="btn btn-outline-danger" (click)="submitClosureDates()" >Submit</button>
+    </div>
 </div>
+<footer>
 
+</footer>
 
  <!-- <div class="container lol-lg-12"> -->
 

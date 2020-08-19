@@ -73,3 +73,10 @@ div.month-group > .row > .col-xs-4 {
     display: inline-block;
     float: none;
 }
+
+footer {
+    height: 100px;
+}
+h6 {
+    font-size: 10px;
+}

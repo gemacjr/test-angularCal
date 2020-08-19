@@ -1,4 +1,4 @@
-import { OnInit, ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { OnInit, ChangeDetectionStrategy, Component, ViewEncapsulation, ComponentFactoryResolver } from '@angular/core';
 import * as Holidays from 'date-holidays';
 
 
@@ -49,11 +49,9 @@ export class ObjectCalComponent implements OnInit {
     '12/25/2020',
   ];
 
-  holidays = {
-    '4,5,1': 'Memorial Day',
-    '8,1,1': 'Labor Day',
-    '10,4,4': 'Thanksgiving',
-  };
+  
+
+  
 
   testmonthJan = [];
 
@@ -63,52 +61,17 @@ export class ObjectCalComponent implements OnInit {
 
   updatedClosureDates = [];
 
-  currentClosure = [
-    {
-      dateKey: '01/03/2021',
-      dateNumber: '03',
-      dayOfWeek: 'TUE',
-      isSelected: true,
-      isPast: false,
-      isDefault: false,
-      isHoliday: false,
-    },
-    {
-      dateKey: '02/15/2021',
-      dateNumber: '15',
-      dayOfWeek: 'WED',
-      isDefault: false,
-      isSelected: true,
-      isPast: false,
-      isHoliday: false,
-    },
-    {
-      dateKey: '01/26/2021',
-      dateNumber: '26',
-      dayOfWeek: 'THU',
-      isSelected: true,
-      isPast: false,
-      isDefault: false,
-      isHoliday: false,
-    },
-    {
-      dateKey: '03/17/2021',
-      dateNumber: '17',
-      dayOfWeek: 'FRI',
-      isSelected: true,
-      isPast: false,
-      isDefault: false,
-      isHoliday: false,
-    },
-  ];
+  
 
   ngOnInit(): void {
     //console.log(this.buildYearArray())
     // console.log(this.buildMonthArray('JAN', '01/02/2020'));
     //console.log(this.monthOne)
-    console.log(this.getHolidaysByYear(2020))
+
+    //this.holidayDays = this.getHolidaysByYear('2022')
+   this.holidayDays = this.getHolidaysByYear('2020')
     this.updatedClosureDates =[];
-    this.currentClosure;
+    
     this.myYearArray = this.buildYearArray('2020');
     this.newDate = this.myYearArray[0][0];
     this.newDate.isSelected = true;
@@ -129,6 +92,15 @@ export class ObjectCalComponent implements OnInit {
     console.log("The current closure dates " + JSON.stringify(this.closureDates))
   }
 
+getOrderedClosureDates(closureDates){
+  console.log(typeof closureDates)
+  let parsedDatesArray = JSON.stringify(closureDates);
+  let strArray = JSON.parse(parsedDatesArray);
+  strArray.sort();
+    console.log("This is it " + strArray);
+
+    return strArray;
+}
   displayCurrentPharmacyClosures(updatedClosureDates){
 
     let dayClosure ={}
@@ -151,6 +123,7 @@ export class ObjectCalComponent implements OnInit {
       this.updatedClosureDates.push(dayClosure);
     }
     
+
     return this.updatedClosureDates;
   }
   submitClosureDates(){
@@ -266,14 +239,17 @@ export class ObjectCalComponent implements OnInit {
   }
 
   getYear(year) {
+    this.getHolidaysByYear(year);
     this.testbuildYearArrayForUi(year);
+    this.holidayDays = this.getHolidaysByYear(year)
   }
 
   ///IT works Aug
 
   getDateId(isSelectedNow: any, dateId: string) {
+    let sortedClosureDates;
     let splitDate = dateId.split("/", 3);
-    let currentYear = splitDate[2]
+    let currentYear = splitDate[2];
     console.log("This is selected " + isSelectedNow)
     if (isSelectedNow === false) {
       console.log(dateId + ' is Checked');
@@ -285,9 +261,11 @@ export class ObjectCalComponent implements OnInit {
       this.closureDates = this.closureDates.filter((m) => m != dateId);
     }
 
+    sortedClosureDates = this.getOrderedClosureDates(this.closureDates);
     this.testbuildYearArrayForUi(currentYear);
-    this.displayCurrentPharmacyClosures(this.closureDates);
-    console.log('The array of closure Dates ' + this.closureDates);
+    this.displayCurrentPharmacyClosures(sortedClosureDates);
+    
+    console.log('The array of closure Dates ' + sortedClosureDates);
     
   }
 
@@ -478,26 +456,74 @@ export class ObjectCalComponent implements OnInit {
     return isPastDate;
   }
 
-  getIsHoliday(dateString, holidayDays): boolean {
-    return holidayDays.includes(dateString);
+  getIsHoliday(dateString): boolean {
+    let currentYearHolidays = this.getHolidaysByYear(dateString.split("/")[2]);
+   
+    return currentYearHolidays.includes(dateString);
   }
 
   getIsDefault(dateString): boolean {
-    let isSunday;
+    this.holidayDays 
+    
+    let isDefault;
     this.getDayOfWeek(dateString);
-    if (this.getDayOfWeek(dateString) === 'SUN' || this.getDayOfWeek(dateString) === 'SAT' ) {
-      isSunday = true;
+    if (this.getDayOfWeek(dateString) === 'SUN' || this.getDayOfWeek(dateString) === 'SAT' || this.holidayDays.includes(dateString)) {
+      isDefault = true;
     } else {
-      isSunday = false;
+      isDefault = false;
     }
-    return isSunday;
+    return isDefault;
   }
 
   getHolidaysByYear(year){
     let hd = new Holidays('US');
+    let holidayArray = [];
+    let currentYearHolidays = [];
+    let holidayStrArray = [];
     
-    hd.getHolidays(year)
-    console.log(hd.getHolidays(year))
+
+    holidayArray = hd.getHolidays(year);
+    //console.log("This year holidays " + JSON.stringify(holidayArray[0]))
+
+    holidayArray.forEach(day => {
+      let NYE = "New Year's Day";
+      let MD = "Memorial Day";
+      let ID = "Independence Day";
+      let LBD = "Labor Day";
+      let TH = "Thanksgiving Day";
+      let CD = "Christmas Day"
+      switch(day.name){
+        case NYE:
+          currentYearHolidays.push(day);
+          break;
+        case MD:
+          currentYearHolidays.push(day);
+          break;
+        case ID:
+          currentYearHolidays.push(day);
+          break;
+        case LBD:
+          currentYearHolidays.push(day);
+          break;
+        case TH:
+          currentYearHolidays.push(day);
+          break;
+        case CD:
+          currentYearHolidays.push(day);
+      }
+    });
+    currentYearHolidays.forEach( day => {
+      let splitDate = day.date.split(" ")[0];
+      let yearStr = splitDate.split('-')[0];
+      let monthStr =splitDate.split('-')[1];
+      let dayStr = splitDate.split('-')[2];
+      let finalDate = monthStr + "/" + dayStr + "/" + yearStr;
+      holidayStrArray.push(finalDate);
+    });
+    
+
+    return holidayStrArray;
+    
   }
 
   getFirstDayOfWeekLength(dayOfFirstWeek) {
