@@ -38,6 +38,7 @@ li label {
 
 h4 {
     padding: 4px;
+    text-align: center;
 }
 
 div.scrollmenu {
@@ -46,7 +47,7 @@ div.scrollmenu {
     white-space: nowrap;
   }
   
-  div.scrollmenu {
+  div.scrollmenu .card{
     display: inline-block;
     
    
@@ -79,4 +80,11 @@ footer {
 }
 h6 {
     font-size: 10px;
+}
+
+.card {
+
+    border: none;
+    padding: 10px;
+
 }
